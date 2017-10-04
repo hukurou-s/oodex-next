@@ -37,6 +37,7 @@ module OodexNext
     config.generators do |g|
       g.helper false
       g.assets false
+    end
 
     config.generators.system_tests = nil
   end
