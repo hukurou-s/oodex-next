@@ -4,9 +4,11 @@
   "dependencies": {
     "@rails/webpacker": "^3.0.1",
     "babel-preset-react": "^6.24.1",
+    "bulma": "^0.6.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "reset.css": "^2.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",

@@ -11,8 +11,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'font-awesome-rails'
-gem 'jbuilder', '~> 2.5'
-gem 'materialize-sass'
+# gem 'jbuilder', '~> 2.5'
+# gem 'materialize-sass'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
 gem 'rack-dev-mark'
@@ -32,6 +32,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rspec-rails', '~> 3.6'
   gem 'spring'

@@ -1,0 +1,27 @@
+.sign-in__section
+  .container
+    .columns.is-desktop
+      .column.is-7
+        h1 aaaa
+      .column.is-5
+        .card
+          .card-content
+            .content
+              = form_for(resource, \
+                as: resource_name, \
+                url: session_path(resource_name)) do |f|
+                .field
+                  = f.label :email, class: 'label'
+                  .control
+                    = f.email_field :email, autofocus: true, class: 'input'
+                .field
+                  = f.label :password, class: 'label'
+                  .control
+                    = f.password_field :password, autocomplete: 'off', class: 'input'
+                - if devise_mapping.rememberable?
+                  .field
+                    .control
+                      = f.check_box :remember_me
+                      = f.label 'パスワードを記録する', class: 'checkbox'
+                .actions
+                  = f.submit 'Log in'
