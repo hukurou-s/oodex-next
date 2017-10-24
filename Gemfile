@@ -11,8 +11,6 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'font-awesome-rails'
-# gem 'jbuilder', '~> 2.5'
-# gem 'materialize-sass'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
 gem 'rack-dev-mark'
@@ -23,13 +21,25 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 
+gem 'simplecov', require: false, group: :test
+gem 'simplecov-cobertura', require: false, group: :test
+
 group :development, :test do
   gem 'annotate'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara', require: false
+  gem 'capybara-screenshot', require: false
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'fuubar'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rubocop'
+  gem 'rubocop'
+  gem 'selenium-webdriver'
+  gem 'slim_lint'
 end
 
 group :development do

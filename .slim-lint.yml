@@ -1,0 +1,18 @@
+skip_frontmatter: false
+
+include:
+  - 'app/views/**/*.slim'
+exclude:
+  - 'app/views/devise/**/*.slim'
+  - 'app/views/kaminari/**/*.slim'
+
+linters:
+  LineLength:
+    max: 120
+
+  ConsecutiveControlStatements:
+    enabled: true
+    max_consecutive: 1
+
+  RuboCop:
+    enabled: false

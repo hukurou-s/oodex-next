@@ -1,3 +1,8 @@
-example_id                      | status | run_time        |
-------------------------------- | ------ | --------------- |
-./spec/models/user_spec.rb[1:1] | failed | 0.00238 seconds |
+example_id                                | status  | run_time        |
+----------------------------------------- | ------- | --------------- |
+./spec/features/user_sign_in_spec.rb[1:1] | passed  | 5.97 seconds    |
+./spec/models/project_spec.rb[1:1]        | pending | 0.00002 seconds |
+./spec/models/session_spec.rb[1:1]        | pending | 0.00002 seconds |
+./spec/models/student_spec.rb[1:1]        | pending | 0.00001 seconds |
+./spec/models/team_spec.rb[1:1]           | pending | 0.00001 seconds |
+./spec/models/user_spec.rb[1:1]           | failed  | 0.00238 seconds |
