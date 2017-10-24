@@ -20,7 +20,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string   :last_sign_in_ip
 
       ## Role
-      t.string :role, null: false, default: 'normal'
+      # 0: normal, 1: ta, 2: admin, 3: super
+      t.integer :role, null: false, default: '0'
 
       ## Confirmable
       # t.string   :confirmation_token

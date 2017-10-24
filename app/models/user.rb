@@ -25,4 +25,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :students
+
+  def over_ta?
+    %w[ta admin super].include? role
+  end
 end

@@ -1,0 +1,25 @@
+doctype html
+html lang="ja"
+  head
+    title
+      | OodexNext
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    meta charset="utf-8"
+    meta http-equiv="x-ua-compatible" content="ie=edge"
+    meta[
+      name="description"
+      content="A Exercise System of OOP for Beginner Java Engineer."
+    ]
+    = csrf_meta_tags
+    = stylesheet_link_tag('application', \
+      media: 'all', \
+      'data-turbolinks-track': 'reload')
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    header
+      = render 'layouts/admin/navbar'
+    main
+      = render 'layouts/flash'
+      = yield
+    footer
