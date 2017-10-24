@@ -1,0 +1,24 @@
+- if has_flash?
+  - if flash.notice
+    .notification.is-success.layouts__flash
+      button#js-flash-close.delete
+      = flash.notice
+  - if flash.alert
+    .notification.is-danger.layouts__flash
+      button#js-flash-close.delete
+      = flash.alert
+
+javascript:
+  'use strict';
+
+  var $el = document.getElementById('js-flash-close');
+
+  var removeFlash = function() {
+    var $flash = document.querySelector('.notification.layouts__flash');
+    $flash.style.display = 'none';
+    $el.removeEventListener('click', removeFlash);
+  }
+
+  if ($el) {
+    $el.addEventListener('click', removeFlash, false)
+  }

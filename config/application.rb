@@ -30,6 +30,8 @@ module OodexNext
     config.sass.preferred_syntax = :sass
     config.sass.line_comments = false
     config.sass.cache = false
+    config.i18n.default_locale = :ja
+
 
     config.rack_dev_mark.enable = !Rails.env.production?
 
