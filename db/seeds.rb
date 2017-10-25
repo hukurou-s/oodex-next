@@ -14,4 +14,11 @@ User.create(
   role: :admin
 ) if Rails.env == 'development' && User.all.size.zero?
 
-FactoryGirl.create_list(:session, 100)
+
+100.times do
+  if rand > 0.5
+    FactoryGirl.create(:session)
+  else
+    FactoryGirl.create(:session, :inactive)
+  end
+end

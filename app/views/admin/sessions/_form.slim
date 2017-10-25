@@ -1,0 +1,58 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      .title
+        | 授業の#{action_name == 'new' ? '作成' : '編集'}
+.container
+  .level
+  .columns
+    .column.is-12
+      = form_with(model: [:admin, @session], local: true) do |f|
+        .field
+          = f.label '名前', class: 'label'
+          p.help
+            span.fa.fa-info-circle aria-hidden="true"
+            | 授業の名前を入力してください。 (例 : InfoExpr1)
+          .control
+            = f.text_field :name, class: 'input'
+        .field
+          = f.label '詳細', class: 'label'
+          p.help
+            span.fa.fa-info-circle aria-hidden="true"
+            | 授業の概要を入力してください。 (例 : 整列算法を用いたOOP学習)
+          p.help
+            span.fa.fa-exclamation-circle aria-hidden="true"
+            | 複数行入力できます
+          .control
+            = f.text_area :detail, class: 'textarea'
+        .field
+          = f.label '開始日時'
+          .control
+            = f.text_field(:start_at,
+              class: 'datetime',
+              style: 'width: 200px;',
+              value: @session.start_at.iso8601 || '')
+        .field
+          = f.label '終了日時'
+          .control
+            = f.text_field(:end_at,
+              class: 'datetime',
+              style: 'width: 200px;',
+              value: @session.end_at.iso8601 || '')
+        .field.is-grouped
+          .control
+            = f.submit action_name == 'new' ? '登録' : '更新', class: 'button is-link'
+          .control
+            = submit_tag 'リセット', class: 'button is-white', type: 'reset'
+  .level
+
+javascript:
+  'use strict';
+
+  moment.tz.setDefault('Asia/Tokyo');
+
+  var $els = document.querySelectorAll('.datetime');
+
+  for (var $el of $els) {
+    rome($el)
+  }

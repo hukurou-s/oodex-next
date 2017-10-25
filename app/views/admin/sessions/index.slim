@@ -1,8 +1,16 @@
+sass:
+  div.is-center
+    justify-content: center !important
+
 section.hero.is-warning
   .hero-body
     .container
       h1.title.is-s1
-        | 授業の管理ページ
+        | 授業の管理
+    .columns
+      .column.is-10
+      .column.is-1
+        = link_to '授業を作成する', new_admin_session_path, class: 'button is-link is-primary'
 .container
   = paginate @sessions
   .columns
@@ -10,8 +18,8 @@ section.hero.is-warning
       table.table.is-striped.admin-sessions__table
         thead
           tr
-            th.admin-sessions__item--id
-              = sort_link(@q, :id, '#')
+            th.admin-sessions__item--ui
+              = '#'
             th.admin-sessions__item--name
               = sort_link(@q, :name, '名前')
             th.admin-sessions__item--detail
@@ -23,10 +31,38 @@ section.hero.is-warning
         tbody
           - @sessions.each do |s|
             tr
-              td.admin-sessions__item--id       = s.id
+              td.admin-sessions__item--ui
+                .field.has-addons.is-center
+                  .control
+                    = link_to '編集', edit_admin_session_url(s.id), class: 'button is-primary is-small'
+                  .control
+                    - if s.active?
+                      = link_to('有効',
+                        admin_session_inactivate_url(s.id),
+                        class: 'button is-link is-small',
+                        method: :put,
+                        remote: true)
+                    - else
+                      = link_to('無効',
+                        admin_session_activate_url(s.id),
+                        class: 'button is-danger is-small',
+                        method: :put,
+                        remote: true)
               td.admin-sessions__item--name     = s.name
               td.admin-sessions__item--detail   = s.detail
               td.admin-sessions__item--start_at = s.start_at
               td.admin-sessions__item--end_at   = s.end_at
+        tfoot
+          tr
+            th.admin-sessions__item--ui
+              = '#'
+            th.admin-sessions__item--name
+              = sort_link(@q, :name, '名前')
+            th.admin-sessions__item--detail
+              = sort_link(@q, :detail, '詳細')
+            th.admin-sessions__item--start_at
+              = sort_link(@q, :start_at, '授業開始日時')
+            th.admin-sessions__item--end_at
+              = sort_link(@q, :end_at, '授業終了日時')
 .container
   = paginate @sessions

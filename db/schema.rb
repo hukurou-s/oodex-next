@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20171024120106) do
   create_table "sessions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "detail", null: false
+    t.boolean "status", default: true, null: false
     t.datetime "start_at", null: false
     t.datetime "end_at", null: false
     t.datetime "created_at", null: false

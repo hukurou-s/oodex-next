@@ -6,12 +6,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_ta!
-    return false if current_user.nil?
     render 'errors/notfound', status: 404 unless %w[ta admin super].include? current_user.role
   end
 
   def authenticate_admin!
-    return false if current_user.nil?
     render 'errors/notfound', status: 404 unless %w[admin super].include? current_user.role
   end
 
