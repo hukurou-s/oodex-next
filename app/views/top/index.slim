@@ -10,10 +10,14 @@ section.hero.is-dark
       table.table.is-striped.admin-sessions__table
         thead
           tr
-            th.admin-sessions__item--name     名前
-            th.admin-sessions__item--detail   詳細
-            th.admin-sessions__item--start_at 授業開始日時
-            th.admin-sessions__item--end_at   授業終了日時
+            th.admin-sessions__item--name
+              = sort_link(@q, :name, '名前')
+            th.admin-sessions__item--detail
+              = sort_link(@q, :detail, '詳細')
+            th.admin-sessions__item--start_at
+              = sort_link(@q, :start_at, '授業開始日時')
+            th.admin-sessions__item--end_at
+              = sort_link(@q, :end_at, '授業終了日時')
         tbody
           - @sessions.each do |s|
             tr
