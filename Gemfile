@@ -6,15 +6,17 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers'
-gem 'coffee-rails', '~> 4.2'
+# gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'font-awesome-rails'
+gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
 gem 'rack-dev-mark'
 gem 'rails', '~> 5.1.4'
+gem 'ransack'
 gem 'sass-rails', '~> 5.0'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'

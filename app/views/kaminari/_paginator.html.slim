@@ -1,0 +1,20 @@
+/ The container tag
+  - available local variables
+    current_page : a page object for the currently displayed page
+    total_pages  : total number of pages
+    per_page     : number of items to fetch per page
+    remote       : data-remote
+    paginator    : the paginator that renders the pagination tags inside
+
+== paginator.render do
+  .container
+    section.hero
+      .hero-body style="padding: 1rem 1.5rem;"
+        nav.breadcrumb.is-centered aria-label="breadcrumbs"
+          ul
+            == first_page_tag
+            == prev_page_tag
+            - each_page do |page|
+              == page_tag page
+            == next_page_tag
+            == last_page_tag

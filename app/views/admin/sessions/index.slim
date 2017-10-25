@@ -1,8 +1,8 @@
-section.hero.is-dark
+section.hero.is-warning
   .hero-body
     .container
       h1.title.is-s1
-        | 授業を選択
+        | 授業の管理ページ
 .container
   = paginate @sessions
   .columns
@@ -10,6 +10,7 @@ section.hero.is-dark
       table.table.is-striped.admin-sessions__table
         thead
           tr
+            th.admin-sessions__item--id       #
             th.admin-sessions__item--name     名前
             th.admin-sessions__item--detail   詳細
             th.admin-sessions__item--start_at 授業開始日時
@@ -17,6 +18,7 @@ section.hero.is-dark
         tbody
           - @sessions.each do |s|
             tr
+              td.admin-sessions__item--id       = s.id
               td.admin-sessions__item--name     = s.name
               td.admin-sessions__item--detail   = s.detail
               td.admin-sessions__item--start_at = s.start_at

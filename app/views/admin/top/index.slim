@@ -1,0 +1,19 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.title.is-s1
+        | 管理ページ
+section.hero
+  .hero-body
+    .container
+      h1.title.is-s1
+        | メニュー
+      .columns
+        .column
+          .field.is-grouped
+            .control
+              = link_to '授業の管理', admin_sessions_path, class: 'button is-link'
+            .control
+              = link_to '問題の管理', '#', class: 'button is-link'
+            .control
+              = link_to '生徒の管理', '#', class: 'button is-link'

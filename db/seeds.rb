@@ -12,4 +12,6 @@ User.create(
   password: 'hogehoge',
   password_confirmation: 'hogehoge',
   role: :admin
-) if Rails.env == 'development'
+) if Rails.env == 'development' && User.all.size.zero?
+
+FactoryGirl.create_list(:session, 100)
