@@ -16,8 +16,8 @@ document.addEventListener('turbolinks:render', function() {
 
 document.addEventListener('turbolinks:request-start', function() {
   window.cursor = window.scrollY
-});
+})
 
 document.addEventListener('turbolinks:render', function() {
   window.scroll(0, window.cursor || 0)
-});
+})

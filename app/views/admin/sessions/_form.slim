@@ -14,7 +14,7 @@ section.hero.is-warning
             span.fa.fa-info-circle aria-hidden="true"
             | 授業の名前を入力してください。 (例 : InfoExpr1)
           .control
-            = f.text_field :name, class: 'input'
+            = f.text_field :name, class: 'input name'
         .field
           = f.label '詳細', class: 'label'
           p.help
@@ -24,21 +24,21 @@ section.hero.is-warning
             span.fa.fa-exclamation-circle aria-hidden="true"
             | 複数行入力できます
           .control
-            = f.text_area :detail, class: 'textarea'
+            = f.text_area :detail, class: 'textarea detail'
         .field
           = f.label '開始日時'
           .control
             = f.text_field(:start_at,
-              class: 'datetime',
+              class: 'datetime start_at',
               style: 'width: 200px;',
-              value: @session.start_at.iso8601 || '')
+              value: @session.start_at&.iso8601 || '')
         .field
           = f.label '終了日時'
           .control
             = f.text_field(:end_at,
-              class: 'datetime',
+              class: 'datetime end_at',
               style: 'width: 200px;',
-              value: @session.end_at.iso8601 || '')
+              value: @session.end_at&.iso8601 || '')
         .field.is-grouped
           .control
             = f.submit action_name == 'new' ? '登録' : '更新', class: 'button is-link'
@@ -53,6 +53,4 @@ javascript:
 
   var $els = document.querySelectorAll('.datetime');
 
-  for (var $el of $els) {
-    rome($el)
-  }
+  for (var $el of $els) { rome($el) }

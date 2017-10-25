@@ -32,6 +32,7 @@ group :development, :test do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'database_cleaner'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'fuubar'
