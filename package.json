@@ -5,11 +5,15 @@
     "@rails/webpacker": "^3.0.1",
     "babel-preset-react": "^6.24.1",
     "bulma": "^0.6.0",
+    "moment": "^2.19.1",
+    "moment-timezone": "^0.5.13",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
+    "puma": "^4.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "reset.css": "^2.0.2"
+    "reset.css": "^2.0.2",
+    "rome": "^2.1.22"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",

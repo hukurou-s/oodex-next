@@ -4,7 +4,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-# timeout = ENV['CI'] || ENV['CI_SERVER'] ? 90 : 30
+timeout = ENV['CI'] || ENV['CI_SERVER'] ? 90 : 30
 
 RSpec.configure do |config|
   config.include Capybara::DSL
@@ -24,4 +24,5 @@ Capybara.register_driver :headless_chrome do |app|
     desired_capabilities: caps
   )
 end
-Capybara.default_driver = :headless_chrome 
+
+Capybara.default_driver = :headless_chrome

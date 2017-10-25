@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-describe 'user sign in', feature: true do
-  let(:user) { create :user, :normal }
+describe 'session create in admin', feature: true do
+  let(:user) { create :user, :admin }
 
   before do
     visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: user.password
   end
 
   let(:submit) { find('.button.is-medium.is-primary').click }

@@ -41,6 +41,9 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include RSpec::Rails::ViewRendering
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.example_status_persistence_file_path = 'examples.txt'
+  config.infer_spec_type_from_file_location!
+  config.use_transactional_fixtures = false
 end
