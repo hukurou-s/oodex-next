@@ -23,12 +23,14 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   ]
 )
 
-SimpleCov.start do
-  add_filter '.gems'
-  add_filter 'pkg'
-  add_filter 'spec'
-  add_filter 'vendor'
-end if ENV['CI']
+if ENV['CI']
+  SimpleCov.start do
+    add_filter '.gems'
+    add_filter 'pkg'
+    add_filter 'spec'
+    add_filter 'vendor'
+  end
+end
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
