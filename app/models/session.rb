@@ -22,4 +22,7 @@ class Session < ApplicationRecord
   enum status: { active: true, inactive: false }
 
   has_many :missions
+
+  scope :in_active, -> { where(status: :active) }
+  scope :by_created, -> { order('created_at DESC') }
 end
