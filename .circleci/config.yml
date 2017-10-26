@@ -70,7 +70,6 @@ jobs:
           command: |
             bundle exec bundle-audit check --update
 
-      # assets precmpile
       - run: RAILS_ENV=test bundle exec rake assets:precompile
 
       # asstes tests

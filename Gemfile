@@ -5,12 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'active_model_serializers'
 # gem 'coffee-rails', '~> 4.2'
+gem 'active_model_serializers'
 gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'font-awesome-rails'
+gem 'kaminari'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'puma', '~> 3.7'
 gem 'rack-dev-mark'
