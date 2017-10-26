@@ -9,13 +9,13 @@ section.hero.is-warning
       h1.title.is-s1
         | #{@session.name}
     .columns
-      .column.is-8
-      .column.is-4
+      .column.is-12
         .field.has-addons.is-right
           .control
             = link_to('この授業を編集する',
               edit_admin_session_path(@session.id),
-              class: 'button is-link')
+              class: 'button is-info')
+          .control
             = link_to('この授業に課題を登録する',
               new_admin_session_mission_path(@session.id),
               class: 'button is-link')
@@ -29,6 +29,9 @@ section.hero.is-info style="margin-bottom: 30px;"
   = paginate @missions
   .columns
     .column.is-12 style="min-height: 909px;"
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+        | 授業に登録されている課題一覧です
       table.table.is-striped.admin-missions__table
         thead
           tr
