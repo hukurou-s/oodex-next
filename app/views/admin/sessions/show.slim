@@ -1,3 +1,7 @@
+sass:
+  .is-right
+    justify-content: flex-end !important
+
 section.hero.is-warning
   .hero-body
     .container
@@ -5,9 +9,9 @@ section.hero.is-warning
       h1.title.is-s1
         | #{@session.name}
     .columns
-      .column.is-7
+      .column.is-8
       .column.is-4
-        .field.has-addons
+        .field.has-addons.is-right
           .control
             = link_to('この授業を編集する',
               edit_admin_session_path(@session.id),
