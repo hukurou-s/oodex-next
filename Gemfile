@@ -5,8 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'active_model_serializers'
 # gem 'coffee-rails', '~> 4.2'
+gem 'active_model_serializers'
 gem 'devise'
 gem 'devise-i18n'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
@@ -29,10 +29,12 @@ gem 'simplecov-cobertura', require: false, group: :test
 
 group :development, :test do
   gem 'annotate'
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
-  gem 'database_cleaner'
+  gem 'codacy-coverage', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
@@ -40,8 +42,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
-  gem 'rubocop'
-  gem 'rubocop'
+  gem 'rubocop', require: false
   gem 'selenium-webdriver'
   gem 'slim_lint'
 end

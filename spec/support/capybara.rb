@@ -4,15 +4,13 @@ require 'capybara/rails'
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-timeout = ENV['CI'] || ENV['CI_SERVER'] ? 90 : 30
-
 RSpec.configure do |config|
   config.include Capybara::DSL
 end
 
-base_args = %w{headless no-sandbox disable-gpu}
+base_args = %w[headless no-sandbox disable-gpu]
 Capybara.register_driver :headless_chrome do |app|
-  args = base_args.dup << "--window-size=1900,1080"
+  args = base_args.dup << '--window-size=1900,1080'
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: {
       args: args

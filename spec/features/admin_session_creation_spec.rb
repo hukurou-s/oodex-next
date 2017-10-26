@@ -17,7 +17,8 @@ describe 'user sign in', feature: true do
 
   context 'succsessful' do
     it 'expected root path' do
-      submit; expect(page.current_path).to eq(admin_sessions_path)
+      submit
+      expect(page.current_path).to eq(admin_sessions_path)
       session = Session.last
       expect(session.name).to eq('hogehoge')
       expect(session.detail).to eq("pogepoge\r\nfoobar")

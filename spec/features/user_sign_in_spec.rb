@@ -14,6 +14,7 @@ describe 'session create in admin', feature: true do
   let(:submit) { find('.button.is-medium.is-primary').click }
 
   it 'expected root path' do
-    submit; expect(page.current_path).to eq '/'
+    submit
+    expect(page.current_path).to eq '/'
   end
 end

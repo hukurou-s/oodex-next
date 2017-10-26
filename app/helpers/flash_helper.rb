@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module FlashHelper
-  def has_flash?
+  def flash?
     flash.notice || flash.alert
   end
 end

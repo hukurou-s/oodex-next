@@ -4,6 +4,7 @@ ENV['RAILS_ENV'] = 'test'
 
 require 'simplecov'
 require 'simplecov-cobertura'
+require 'codacy-coverage'
 
 # require 'webmock/rspec'
 # WebMock.disable_net_connect!(allow_localhost: true)
@@ -17,10 +18,19 @@ end
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::CoberturaFormatter
+    SimpleCov::Formatter::CoberturaFormatter,
+    Codacy::Formatter
   ]
 )
-SimpleCov.start if ENV['CI']
+
+if ENV['CI']
+  SimpleCov.start do
+    add_filter '.gems'
+    add_filter 'pkg'
+    add_filter 'spec'
+    add_filter 'vendor'
+  end
+end
 
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'

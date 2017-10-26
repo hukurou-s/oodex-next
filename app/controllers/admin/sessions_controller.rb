@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Admin::SessionsController < Admin::ApplicationController
   before_action :set_session, only: %i[edit update activate inactivate show]
 
   def index
     sessions = Session.all.order('created_at DESC')
     @q = sessions.ransack(params[:q])
-    @sessions = @q.result.page(params[:page] || 1).per(20)
+    @sessions = @q.result&.page(params[:page] || 1)&.per(20)
   end
 
   def new
@@ -27,7 +29,7 @@ class Admin::SessionsController < Admin::ApplicationController
 
   def show
     @q = @session.missions.ransack(params[:q])
-    @missions = @q.result.page(params[:page] || 1).per(20)
+    @missions = @q.result&.page(params[:page] || 1)&.per(20)
   end
 
   def update
