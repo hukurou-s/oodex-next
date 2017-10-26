@@ -6,7 +6,9 @@ section.hero.is-warning
     .columns
       .column.is-10
       .column.is-1
-        = link_to '問題を作成', new_admin_session_mission_path(@session.id), class: 'button is-link'
+        = link_to('この授業に問題を作成する',
+          new_admin_session_mission_path(@session.id),
+          class: 'button is-link')
 section.hero.is-info
   .hero-body
     .container
