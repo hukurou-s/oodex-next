@@ -1,0 +1,6 @@
+---
+exclude_paths:
+  - db/**/*
+  - config/**/*
+  - Gemfile
+  - config.ru
