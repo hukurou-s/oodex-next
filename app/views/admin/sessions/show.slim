@@ -1,0 +1,49 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.title.is-s1
+        | #{@session.name}
+    .columns
+      .column.is-10
+      .column.is-1
+        = link_to '問題を作成', new_admin_session_mission_path(@session.id), class: 'button is-link'
+section.hero.is-info
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 詳細
+      p = @session.detail
+.container
+  = paginate @missions
+  .columns
+    .column.is-12 style="min-height: 909px;"
+      table.table.is-striped.admin-missions__table
+        thead
+          tr
+            th.admin-missions__item--ui
+              = '#'
+            th.admin-missions__item--name
+              = sort_link(@q, :name, '名前')
+            th.admin-missions__item--detail
+              = sort_link(@q, :detail, '詳細')
+        tbody
+          - @missions.each do |s|
+            tr
+              td.admin-missions__item--ui
+                .field.has-addons.is-center
+                  .control
+                    = link_to('編集',
+                      edit_admin_session_mission_path(@session.id, s.id),
+                      class: 'button is-primary is-small')
+              td.admin-missions__item--name
+                = link_to s.name, admin_session_url(s.id)
+              td.admin-missions__item--detail   = s.detail
+        tfoot
+          tr
+            th.admin-missions__item--ui
+              = '#'
+            th.admin-missions__item--name
+              = sort_link(@q, :name, '名前')
+            th.admin-missions__item--detail
+              = sort_link(@q, :detail, '詳細')
+  = paginate @missions

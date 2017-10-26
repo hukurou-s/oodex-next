@@ -19,5 +19,5 @@ class Session < ApplicationRecord
   validates :end_at, presence: true
   enum status: { active: true, inactive: false }
 
-  has_many :mission
+  has_many :missions
 end

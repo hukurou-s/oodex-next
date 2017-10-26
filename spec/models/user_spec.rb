@@ -14,6 +14,7 @@
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
 #  role                   :integer          default("normal"), not null
+#  snum                   :string(255)      not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

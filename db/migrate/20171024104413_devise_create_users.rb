@@ -20,8 +20,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string   :last_sign_in_ip
 
       ## Role
-      # 0: normal, 1: ta, 2: admin, 3: super
+      # 0: guest, 1: normal, 2: ta, 3: admin, 4: super
       t.integer :role, null: false, default: '0'
+
+      ## 学籍番号
+      # 高校生: h00x000
+      # 大学生: s00t000
+      # 教員(TAなど): t_tominaga
+      # 社会人: p00x000
+      t.string :snum, null: false
 
       ## Confirmable
       # t.string   :confirmation_token

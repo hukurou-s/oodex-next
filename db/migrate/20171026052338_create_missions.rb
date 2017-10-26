@@ -7,5 +7,7 @@ class CreateMissions < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :missions, :session_id
   end
 end

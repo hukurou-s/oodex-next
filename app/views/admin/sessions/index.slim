@@ -48,9 +48,8 @@ section.hero.is-warning
                         class: 'button is-danger is-small',
                         method: :put,
                         remote: true)
-                  .control
-                    = link_to '問題登録', new_admin_session_mission_url(session_id: s.id), class: 'button is-success is-small'
-              td.admin-sessions__item--name     = s.name
+              td.admin-sessions__item--name
+                = link_to s.name, admin_session_url(s.id)
               td.admin-sessions__item--detail   = s.detail
               td.admin-sessions__item--start_at = s.start_at
               td.admin-sessions__item--end_at   = s.end_at
