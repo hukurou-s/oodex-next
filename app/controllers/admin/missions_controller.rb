@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::MissionsController < Admin::ApplicationController
   before_action :set_session, only: %i[new]
   before_action :set_mission, only: %i[edit]
@@ -7,7 +9,6 @@ class Admin::MissionsController < Admin::ApplicationController
   end
 
   def edit; end
-
 
   private
 

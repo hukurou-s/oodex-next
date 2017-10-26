@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ControllerMacros
   def login_admin(admin)
     @request.env['devise.mapping'] = Devise.mappings[:admin]

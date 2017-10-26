@@ -1,0 +1,82 @@
+version: 2
+jobs:
+  build:
+    docker:
+       - image: circleci/ruby:2.4.1-node-browsers
+       - image: library/mysql:latest
+         env:
+           - MYSQL_ALLOW_EMPTY_PASSWORD=true
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # install ruby dependencies
+      - restore_cache:
+          keys:
+            - v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-ruby-dependencies
+
+      - run:
+          name: install ruby dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-ruby-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # install git dependencies
+      - run:
+          name: install git dependencies
+          command: |
+            git submodule init && git submodule update
+
+      # install node dependencies
+      - restore_cache:
+          keys:
+            - v1-node-dependencies-{{ checksum "package.json" }}
+            - v1-node-dependencies
+
+      - run:
+          name: install node dependencies
+          command: yarn
+
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-node-dependencies={{ checksum "package.json" }}
+
+      # run lint
+      - run:
+          name: run rubocop
+          command: |
+            bundle exec rubocop --parallel
+
+      - run:
+          name: run slim-lint
+          command: |
+            bundle exec slim-lint app/views
+
+      - run:
+          name: run breakman
+          command: |
+            bundle exec brakeman -z
+
+      - run:
+          name: bundle-audit
+          command: |
+            bundle exec bundle-audit check --update
+
+      # assets precmpile
+      - run: RAILS_ENV=test bundle exec rake assets:precompile
+
+      # asstes tests
+      - run: npm test
+
+      - run: RAILS_ENV=test bundle exec rake db:migrate:reset
+
+      # run rspec
+      - run: RAILS_ENV=test bundle exec rspec

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :session do
     name { "InfoExpr##{Faker::Number.between(1, 100)} " }
-    detail { Faker::Lorem.paragraphs(Faker::Number.between(1, 7)).join("\n")}
+    detail { Faker::Lorem.paragraphs(Faker::Number.between(1, 7)).join("\n") }
     start_at Time.now - 300
     end_at Time.now + 300
   end

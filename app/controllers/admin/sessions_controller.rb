@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::SessionsController < Admin::ApplicationController
   before_action :set_session, only: %i[edit update activate inactivate show]
 

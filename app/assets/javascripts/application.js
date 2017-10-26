@@ -7,11 +7,11 @@
 //= require_tree .
 
 document.addEventListener('turbolinks:click', function() {
-  NProgress.start()
+  window.NProgress.start()
 })
 document.addEventListener('turbolinks:render', function() {
-  NProgress.done()
-  NProgress.remove()
+  window.NProgress.done()
+  window.NProgress.remove()
 })
 
 document.addEventListener('turbolinks:request-start', function() {
