@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :sessions do
       put '/activate' => 'sessions#activate', as: :activate
       put '/inactivate' => 'sessions#inactivate', as: :inactivate
+      resources :missions
     end
   end
 end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: projects
+# Table name: missions
 #
 #  id         :integer          not null, primary key
 #  session_id :integer          not null
@@ -12,6 +12,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Project, type: :model do
+RSpec.describe Mission, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

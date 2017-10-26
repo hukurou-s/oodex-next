@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024120106) do
+ActiveRecord::Schema.define(version: 20171026052338) do
+
+  create_table "missions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "session_id", null: false
+    t.string "name", null: false
+    t.text "detail", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_missions_on_session_id"
+  end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "session_id", null: false
@@ -40,15 +49,6 @@ ActiveRecord::Schema.define(version: 20171024120106) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "teams", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
-    t.integer "session_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_teams_on_name", unique: true
-    t.index ["session_id"], name: "index_teams_on_session_id"
-  end
-
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20171024120106) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "role", default: 0, null: false
+    t.string "snum", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

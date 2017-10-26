@@ -14,7 +14,7 @@ section.hero.is-warning
 .container
   = paginate @sessions
   .columns
-    .column.is-12
+    .column.is-12 style="min-height: 909px;"
       table.table.is-striped.admin-sessions__table
         thead
           tr
@@ -48,7 +48,8 @@ section.hero.is-warning
                         class: 'button is-danger is-small',
                         method: :put,
                         remote: true)
-              td.admin-sessions__item--name     = s.name
+              td.admin-sessions__item--name
+                = link_to s.name, admin_session_url(s.id)
               td.admin-sessions__item--detail   = s.detail
               td.admin-sessions__item--start_at = s.start_at
               td.admin-sessions__item--end_at   = s.end_at
