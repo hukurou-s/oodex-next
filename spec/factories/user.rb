@@ -5,6 +5,7 @@ FactoryGirl.define do
     email { Faker::Internet.unique.email }
     password 'hogehoge'
     password_confirmation 'hogehoge'
+    snum "s#{Faker::Number.between(10, 99)}x#{Faker::Number.between(100, 999)}"
   end
 
   trait :normal

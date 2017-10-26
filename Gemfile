@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
+  gem 'codacy-coverage', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'faker'
