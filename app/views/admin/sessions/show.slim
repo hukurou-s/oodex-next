@@ -1,19 +1,25 @@
 section.hero.is-warning
   .hero-body
     .container
+      p 授業名
       h1.title.is-s1
         | #{@session.name}
     .columns
-      .column.is-10
-      .column.is-1
-        = link_to('この授業に問題を作成する',
-          new_admin_session_mission_path(@session.id),
-          class: 'button is-link')
-section.hero.is-info
+      .column.is-7
+      .column.is-4
+        .field.has-addons
+          .control
+            = link_to('この授業を編集する',
+              edit_admin_session_path(@session.id),
+              class: 'button is-link')
+            = link_to('この授業に課題を登録する',
+              new_admin_session_mission_path(@session.id),
+              class: 'button is-link')
+section.hero.is-info style="margin-bottom: 30px;"
   .hero-body
     .container
       h1.subtitle.is-s1
-        | 詳細
+        | 授業の説明文
       p = @session.detail
 .container
   = paginate @missions
@@ -23,29 +29,29 @@ section.hero.is-info
         thead
           tr
             th.admin-missions__item--ui
-              = '#'
+              b = '#'
             th.admin-missions__item--name
-              = sort_link(@q, :name, '名前')
+              b = sort_link(@q, :name, '課題名')
             th.admin-missions__item--detail
-              = sort_link(@q, :detail, '詳細')
+              b = sort_link(@q, :detail, '詳細')
         tbody
-          - @missions.each do |s|
+          - @missions.each do |m|
             tr
               td.admin-missions__item--ui
                 .field.has-addons.is-center
                   .control
                     = link_to('編集',
-                      edit_admin_session_mission_path(@session.id, s.id),
+                      edit_admin_session_mission_path(@session.id, m.id),
                       class: 'button is-primary is-small')
               td.admin-missions__item--name
-                = link_to s.name, admin_session_url(s.id)
-              td.admin-missions__item--detail   = s.detail
+                = link_to m.name, edit_admin_session_mission_url(m.id)
+              td.admin-missions__item--detail = m.detail
         tfoot
           tr
             th.admin-missions__item--ui
-              = '#'
+              b = '#'
             th.admin-missions__item--name
-              = sort_link(@q, :name, '名前')
+              b = sort_link(@q, :name, '課題名')
             th.admin-missions__item--detail
-              = sort_link(@q, :detail, '詳細')
+              b = sort_link(@q, :detail, '詳細')
   = paginate @missions

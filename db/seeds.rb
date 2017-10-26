@@ -22,7 +22,7 @@ User.create(
     session = FactoryGirl.create(:session, :inactive)
   end
 
-  10.times do
+  50.times do
     session.missions.push(Mission.new(
       session_id: session.id,
       name: ['三目並べ', '整列算法'].sample,
