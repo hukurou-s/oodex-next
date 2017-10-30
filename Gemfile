@@ -43,6 +43,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-rails'
   gem 'rubocop', require: false
+  gem 'rubocop-checkstyle_formatter', require: false
   gem 'selenium-webdriver'
   gem 'slim_lint'
 end

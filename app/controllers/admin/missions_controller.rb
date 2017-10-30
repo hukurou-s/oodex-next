@@ -8,7 +8,9 @@ class Admin::MissionsController < Admin::ApplicationController
     @mission = @session.missions.new
   end
 
-  def edit; end
+  def edit
+
+ end
 
   private
 
