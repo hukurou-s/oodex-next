@@ -36,19 +36,20 @@ jobs:
             git submodule init && git submodule update
 
       # install node dependencies
-      - save_cache:
-          paths:
-            - ./node_modules
-          key: v1-watchdogs-dependencies-{{ checksum "package.json" }}
+      - restore_cache:
+          keys:
+            - v1-node-dependencies-{{ checksum "package.json" }}
+            - v1-node-dependencies
 
       - run:
           name: install node dependencies
           command: yarn
 
-      - restore_cache:
-          keys:
-            - v1-node-dependencies-{{ checksum "package.json" }}
-            - v1-node-dependencies
+      - save_cache:
+          paths:
+            - ./node_modules
+          key: v1-watchdogs-dependencies-{{ checksum "package.json" }}
+
 
       - run:
           name: review dog install
@@ -59,7 +60,7 @@ jobs:
       - run:
           name: run rubocop
           command: |
-            bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter | ~/bin/reviewdog -f=checkstyle -diff="git diff" -ci="circle-ci"
+            bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter | ~/bin/reviewdog -f=checkstyle -name="rubocop" -diff="git diff" -ci="circle-ci"
 
       - run:
           name: run slim-lint
@@ -69,7 +70,7 @@ jobs:
       - run:
           name: run eslint
           command: |
-            $(npm bin)/eslint -f checkstyle . | ~/bin/reviewdog -f checkstyle -name="eslint" -ci="circle-ci"
+            $(npm bin)/eslint -f checkstyle app/**/*.js | ~/bin/reviewdog -f checkstyle -name="eslint" -ci="circle-ci" -diff="git diff"
 
       - run:
           name: run breakman
