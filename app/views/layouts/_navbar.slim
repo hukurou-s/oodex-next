@@ -21,20 +21,3 @@ nav.navbar.is-primary role="navigation" aria-label="main navigation"
         = link_to 'ログアウト', destroy_user_session_path, class: 'navbar-item', method: :delete
       - else
         = link_to 'ログイン', new_user_session_path, class: 'navbar-item'
-
-javascript:
-  (function() {
-    document.addEventListener('turbolinks:load', function () {
-      var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-      if ($navbarBurgers.length > 0) {
-        $navbarBurgers.forEach(function ($el) {
-          $el.addEventListener('click', function () {
-            var target = $el.dataset.target;
-            var $target = document.getElementById(target);
-            $el.classList.toggle('is-active');
-            $target.classList.toggle('is-active');
-          });
-        });
-      }
-    });
-  })()

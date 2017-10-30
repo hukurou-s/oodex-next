@@ -6,6 +6,7 @@ jobs:
        - image: library/mysql:latest
          env:
            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+           - REVIEWDOG_VERSION=0.9.8
 
     working_directory: ~/repo
 
@@ -47,18 +48,29 @@ jobs:
       - save_cache:
           paths:
             - ./node_modules
-          key: v1-node-dependencies={{ checksum "package.json" }}
+          key: v1-watchdogs-dependencies-{{ checksum "package.json" }}
+
+
+      - run:
+          name: review dog install
+          command: |
+            mkdir ~/bin && curl -fSL https://github.com/haya14busa/reviewdog/releases/download/0.9.8/reviewdog_linux_amd64 -o ~/bin/reviewdog && chmod +x ~/bin/reviewdog
 
       # run lint
       - run:
           name: run rubocop
           command: |
-            bundle exec rubocop --parallel
+            bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter | ~/bin/reviewdog -f=checkstyle -name="rubocop" -diff="git diff" -ci="circle-ci"
 
       - run:
           name: run slim-lint
           command: |
             bundle exec slim-lint app/views
+
+      - run:
+          name: run eslint
+          command: |
+            $(npm bin)/eslint -f checkstyle app/**/*.js | ~/bin/reviewdog -f checkstyle -name="eslint" -ci="circle-ci" -diff="git diff"
 
       - run:
           name: run breakman
