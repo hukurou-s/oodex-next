@@ -4,19 +4,19 @@ require 'rails_helper'
 
 RSpec.describe Api::UsersController, type: :request do
   let(:user) { create :user }
-  let(:parameter) {
+  let(:parameter) do
     {
       params: params
     }
-  }
+  end
 
   context 'successful' do
-    let(:params) {
+    let(:params) do
       {
         email: user.email,
         password: user.password
       }
-    }
+    end
 
     it 'expected success sign in' do
       post api_users_sign_in_url, parameter

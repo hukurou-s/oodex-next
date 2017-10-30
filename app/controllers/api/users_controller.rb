@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::UsersController < Api::ApplicationController
   def sign_in
     user = User.find_by(email: params[:email])

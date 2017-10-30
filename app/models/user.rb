@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def ensure_authentication_token
-   loop do
+    loop do
       token = SecureRandom.urlsafe_base64(24).tr('lIO0', 'sxyz')
       result = update(token: token)
       break if result
