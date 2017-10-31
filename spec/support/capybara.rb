@@ -8,11 +8,11 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 end
 
-if ENV['NO_HEADLESS'] == '1'
-  base_args = %w[no-sandbox disable-gpu]
-else
-  base_args = %w[headless no-sandbox disable-gpu]
-end
+base_args = if ENV['NO_HEADLESS'] == '1'
+              %w[no-sandbox disable-gpu]
+            else
+              %w[headless no-sandbox disable-gpu]
+            end
 
 Capybara.register_driver :headless_chrome do |app|
   args = base_args.dup << '--window-size=1900,1080'
