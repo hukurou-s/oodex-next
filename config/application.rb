@@ -37,6 +37,8 @@ module OodexNext
 
     config.rack_dev_mark.enable = !Rails.env.production?
 
+    config.autoload_paths << "#{Rails.root}/worker"
+
     # Don't generate helper and assets
     config.generators do |g|
       g.helper false

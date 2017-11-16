@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20171026052338) do
   create_table "missions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "session_id", null: false
     t.string "name", null: false
+    t.string "repository", null: false
     t.text "detail", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

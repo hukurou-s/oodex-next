@@ -16,6 +16,13 @@ section.hero.is-warning
           .control
             = f.text_field :name, class: 'input name'
         .field
+          = f.label 'リポジトリ', class: 'label'
+          p.help
+            span.fa.fa-info-circle aria-hidden="true"
+            |  git@ から始まる URL を指定してください
+          .control
+            = f.text_field :repository, class: 'input repository'
+        .field
           = f.label '詳細', class: 'label'
           p.help
             span.fa.fa-exclamation-circle aria-hidden="true"

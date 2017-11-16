@@ -1,0 +1,10 @@
+---
+:concurrency: 3
+:verbose: false
+:pidfile: tmp/pids/sidekiq.pid
+:logfile: log/sidekiq.log
+:queues:
+  - default
+  - event
+production:
+  :concurrency: 30
