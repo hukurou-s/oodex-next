@@ -22,6 +22,7 @@ gem 'redis-namespace'
 gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'sinatra', require: false
+gem 'slack-incoming-webhooks'
 gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
