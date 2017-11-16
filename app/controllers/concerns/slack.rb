@@ -13,7 +13,7 @@ class OodexNext::Slacker
     slack = Slack::Incoming::Webhooks.new(
       @url,
       channel: @channel,
-      username: 'TEE-system',
+      username: 'TooDex-system',
       icon_emoji: ':tea:'
     )
     slack.post 'システムからの通知です', attachments: attachments unless attachments.nil?
