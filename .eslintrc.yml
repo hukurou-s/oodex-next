@@ -3,6 +3,8 @@ env:
   browser: true
   es6: true
   node: true
+globals:
+  ActionCable: false
 extends:
 - prettier
 - prettier/standard

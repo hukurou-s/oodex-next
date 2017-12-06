@@ -2,6 +2,7 @@
 //= require turbolinks
 //= require nprogress/nprogress
 //= require moment/moment
+//= require action_cable
 //= require moment-timezone/moment-timezone
 //= require rome/dist/rome.min
 //= require_tree .
