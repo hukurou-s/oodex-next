@@ -8,9 +8,23 @@ class Admin::MissionsController < Admin::ApplicationController
     @mission = @session.missions.new
   end
 
+  def create
+    hash = mission_params.merge(session_id: params[:session_id]).to_h
+    RepoCloneWorker.perform_async(hash)
+    ActionCable.server.broadcast 'repo', status: 'uploading'
+  end
+
   def edit; end
 
   private
+
+  def mission_params
+    params.require(:mission).permit(
+      :repository,
+      :name,
+      :detail
+    )
+  end
 
   def set_mission
     @mission = Mission.find(params[:id])

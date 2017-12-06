@@ -22,3 +22,7 @@
 /node_modules
 
 /examples.txt
+/repos/*
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
