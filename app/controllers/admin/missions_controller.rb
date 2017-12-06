@@ -11,6 +11,7 @@ class Admin::MissionsController < Admin::ApplicationController
   def create
     hash = mission_params.merge(session_id: params[:session_id]).to_h
     RepoCloneWorker.perform_async(hash)
+    ActionCable.server.broadcast 'repo', status: 'uploading'
   end
 
   def edit; end

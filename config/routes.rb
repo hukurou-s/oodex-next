@@ -12,9 +12,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    mount ActionCable.server => '/cable'
+
     authenticate :user, lambda { |u| u.super? } do
       mount Sidekiq::Web => '/sidekiq'
     end
+
     root to: 'top#index'
     resources :sessions do
       put '/activate' => 'sessions#activate', as: :activate
