@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     delete '/users/sign_out', to: 'users#sign_out'
   end
 
+  mount Sidekiq::Web => '/sidekiq' if Rails.env == 'development'
+
   namespace :admin do
     mount ActionCable.server => '/cable'
 
@@ -22,7 +24,9 @@ Rails.application.routes.draw do
     resources :sessions do
       put '/activate' => 'sessions#activate', as: :activate
       put '/inactivate' => 'sessions#inactivate', as: :inactivate
-      resources :missions
+      resources :missions do
+        resource :problems
+      end
     end
   end
 end

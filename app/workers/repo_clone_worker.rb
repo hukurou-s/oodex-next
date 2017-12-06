@@ -8,11 +8,10 @@ class RepoCloneWorker
   sidekiq_options queue: :event
 
   def perform(mission_params)
-    command = generate_eval_str mission_params
-    _, err, = Open3.capture3(command)
-    logger.info command
+    @mission_params = mission_params
+    _, err, = Open3.capture3(git_clone)
     if err.empty?
-      Mission.create(mission_params) if err.empty?
+      Mission.create(params) if err.empty?
     else
       logger.error 'Fail create mission' unless err.empty?
     end
@@ -20,11 +19,23 @@ class RepoCloneWorker
 
   private
 
-  def generate_eval_str(mission_params)
+  def params
+    @mission_params.merge({ local_repository: local_path })
+  end
+
+  def git_clone
+    "git clone #{url} #{local_path}"
+  end
+
+  def url
+    Shellwords.shellescape(@mission_params['repository'])
+  end
+
+  def local_path
     # FIXME: maybe has shell execution vulnerabilities.
     #        you should validate and escape url of mission params.
-    url = Shellwords.shellescape(mission_params['repository'])
     dir_name = url.match(%r{(/.*).git}).to_s.delete('/')
-    "git clone #{url} -o repos/#{dir_name}"
+    time = Time.now.to_i.to_s
+    "repo/#{time}/#{dir_name}"
   end
 end

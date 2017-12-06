@@ -14,4 +14,8 @@
 
 class Mission < ApplicationRecord
   belongs_to :session
+
+  def files
+
+  end
 end
