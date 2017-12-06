@@ -12,10 +12,9 @@ Rails.application.routes.draw do
   end
 
   mount Sidekiq::Web => '/sidekiq' if Rails.env == 'development'
+  mount ActionCable.server => '/cable'
 
   namespace :admin do
-    mount ActionCable.server => '/cable'
-
     authenticate :user, lambda { |u| u.super? } do
       mount Sidekiq::Web => '/sidekiq'
     end

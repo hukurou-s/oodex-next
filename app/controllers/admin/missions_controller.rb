@@ -2,7 +2,7 @@
 
 class Admin::MissionsController < Admin::ApplicationController
   before_action :set_session, only: %i[new]
-  before_action :set_mission, only: %i[edit]
+  before_action :set_mission, only: %i[edit show]
 
   def new
     @mission = @session.missions.new
@@ -15,6 +15,8 @@ class Admin::MissionsController < Admin::ApplicationController
   end
 
   def edit; end
+
+  def show; end
 
   private
 
