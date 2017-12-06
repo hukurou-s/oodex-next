@@ -20,7 +20,7 @@ class RepoCloneWorker
   private
 
   def params
-    @mission_params.merge({ local_repository: local_path })
+    @mission_params.merge(local_repository: local_path)
   end
 
   def git_clone
