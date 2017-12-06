@@ -26,7 +26,7 @@ class RepoCloneWorker
   # generate redirect to url after clone repository.
   # @param {Integer} id
   def to(id)
-    admin_session_mission_path(mission_params['session_id'], id)
+    admin_session_mission_path(@mission_params['session_id'], id)
   end
 
   def clone_repository_from_github
