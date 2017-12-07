@@ -17,8 +17,10 @@
 class Mission < ApplicationRecord
   belongs_to :session
 
-  def java_files
-    files.grep(/\.java/).map { |f| f.gsub(Regexp.new(absolute_path), '') }
+  def java_files(absolute = false)
+    java_files = files.grep(/\.java/)
+    return java_files if absolute
+    java_files.map { |f| f.gsub(Regexp.new(absolute_path), '') }
   end
 
   def java_main_files
@@ -27,6 +29,10 @@ class Mission < ApplicationRecord
 
   def java_test_files
     java_files.grep(/.*test*/)
+  end
+
+  def raw_data
+    java_files(true).map { |p| File.read p }
   end
 
   private

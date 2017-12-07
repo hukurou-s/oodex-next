@@ -26,3 +26,4 @@
 
 # Ignore encrypted secrets key file.
 config/secrets.yml.key
+/dump.rdb
