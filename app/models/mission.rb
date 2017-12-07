@@ -18,7 +18,7 @@ class Mission < ApplicationRecord
   belongs_to :session
 
   def java_files
-    files.grep(/\.java/).map { |f|f.gsub(Regexp.new(absolute_path), '') }
+    files.grep(/\.java/).map { |f| f.gsub(Regexp.new(absolute_path), '') }
   end
 
   def java_main_files
