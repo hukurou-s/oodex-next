@@ -4,11 +4,40 @@ section.hero.is-warning
       h1.subtitle.is-s1
         | #{@mission.name}
 
-section.hefo.is-info style="margin-bottom: 30px;"
-  .hero-bofy
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
     .container
       h1.subtitle.is-s1
         | 授業の説明文
       p = @mission.detail
 
 .container
+  .columns
+    .column.is-6 style="min-height: 909px;"
+      h1
+        | メインファイル一覧
+      table.table.is-striped
+        thead
+          tr
+            th
+              b
+                | ファイル名
+        tbody
+          - @mission.java_main_files.each do |f|
+            tr
+              td
+                p = f
+    .column
+      h1
+        | テストファイル一覧
+      table.table.is-striped
+        thead
+          tr
+            th
+              b
+                | ファイル名
+        tbody
+          - @mission.java_test_files.each do |f|
+            tr
+              td
+                p = f

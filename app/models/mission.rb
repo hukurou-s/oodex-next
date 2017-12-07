@@ -18,7 +18,7 @@ class Mission < ApplicationRecord
   belongs_to :session
 
   def java_files
-    files.grep(/\.java/)
+    files.grep(/\.java/).map { |f|f.gsub(Regexp.new(absolute_path), '') }
   end
 
   def java_main_files
@@ -32,10 +32,12 @@ class Mission < ApplicationRecord
   private
 
   def files
-    Dir.glob("#{absolute_path}/**/*")
+    @files = Dir.glob("#{absolute_path}/**/*").sort if @files.nil?
+    @files
   end
 
   def absolute_path
-    Rails.root.join(local_repository)
+    @absolute_path = Rails.root.join(local_repository).to_s if @absolute_path.nil?
+    @absolute_path
   end
 end
