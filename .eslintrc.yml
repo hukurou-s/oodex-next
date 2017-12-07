@@ -17,7 +17,7 @@ rules:
     - error
     - argsIgnorePattern: "^_"
       caughtErrorsIgnorePattern: "^_"
-      varsIgnorePattern: "^h$"
+      varsIgnorePattern: "^h$|React"
   no-console:
   - error
   - allow:
@@ -28,3 +28,4 @@ rules:
   no-class-assign: error
   constructor-super: error
   no-useless-escape: error
+  react/jsx-uses-vars: error

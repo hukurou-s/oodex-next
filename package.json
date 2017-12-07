@@ -17,7 +17,8 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "reset.css": "^2.0.2",
-    "rome": "^2.1.22"
+    "rome": "^2.1.22",
+    "webpacker-react": "^0.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",

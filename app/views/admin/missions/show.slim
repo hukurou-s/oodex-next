@@ -1,3 +1,5 @@
+= javascript_pack_tag 'index'
+
 section.hero.is-warning
   .hero-body
     .container
@@ -13,7 +15,7 @@ section.hero.is-info style="margin-bottom: 30px;"
 
 .container
   .columns
-    .column.is-6 style="min-height: 909px;"
+    .column.is-6
       h1
         | メインファイル一覧
       table.table.is-striped
@@ -41,3 +43,6 @@ section.hero.is-info style="margin-bottom: 30px;"
             tr
               td
                 p = f
+  .columns
+    .columns.is-12
+      = react_component('MissionEditor')
