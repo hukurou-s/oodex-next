@@ -15,6 +15,7 @@
 #
 
 class Mission < ApplicationRecord
+  using JavaFileExtensions
   belongs_to :session
 
   def java_files(absolute = false)
@@ -31,8 +32,11 @@ class Mission < ApplicationRecord
     java_files.grep(/.*test*/)
   end
 
-  def raw_data
-    java_files(true).map { |p| File.read p }
+  def java_main_contents
+    java_files(true).grep_v(/\/test/).map do |p|
+      name = p.to_relative_path(local_repository)
+      { name => File.read(p) }
+    end
   end
 
   private

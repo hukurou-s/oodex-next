@@ -1,14 +1,15 @@
 const callback = data => {
   switch (data.status) {
     case 'uploading':
-      window.showPreloader('ダウンロード中です... 🤔')
+      window.loader.show('ダウンロード中です... 🤔')
       break
     case 'fail':
-      window.failPreloader('ダウンロードに失敗しました 😱')
+      window.loader.fail('ダウンロードに失敗しました 😱')
       break
     case 'done':
-      window.donePreloader('完了しました 😆')
+      window.loader.done('完了しました 😆')
       setTimeout(() => {
+        window.loader.hide()
         window.location.replace(data.to)
       }, 1000)
       break

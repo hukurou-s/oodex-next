@@ -23,23 +23,23 @@ javascript:
     const $icon = document.querySelector('.icon')
     const $mes = $element.querySelector('.message')
 
-    window.showPreloader = (message = '') => {
-      $icon.className = 'fa fa-spin fa-spinner fa-5x icon'
-      $element.style.display = 'block'
-      $mes.innerText = message
-    }
-
-    window.hidePreloader = () => {
-      $element.style.display = 'none'
-      $mes.innerText = ''
-    }
-
-    window.failPreloader = (message = '') => {
-      $icon.className = 'fa fa-times fa-5x icon'
-    }
-
-    window.donePreloader = (message = '') => {
-      $icon.className = 'fa fa-check fa-5x icon'
-      $mes.innerText = message
+    window.loader = {
+      show: function(message = '') {
+        $icon.className = 'fa fa-spin fa-spinner fa-5x icon'
+        $element.style.display = 'block'
+        $mes.innerText = message
+      },
+      hide: function() {
+        $element.style.display = 'none'
+        $mes.innerText = ''
+      },
+      fail: function(message = '') {
+        $icon.className = 'fa fa-times fa-5x icon'
+        $mes.innerText = message
+      },
+      done: function(message = '') {
+        $icon.className = 'fa fa-check fa-5x icon'
+        $mes.innerText = message
+      }
     }
   })()

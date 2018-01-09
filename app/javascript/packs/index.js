@@ -1,5 +1,5 @@
 import WebpackerReact from 'webpacker-react'
-import MissionEditor from './components/admin/mission'
+import MissionEditor from '../components/admin/mission'
 
 window.Turbolinks.start()
 
