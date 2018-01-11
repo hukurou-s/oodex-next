@@ -33,7 +33,7 @@ class Mission < ApplicationRecord
   end
 
   def java_main_contents
-    java_files(true).grep_v(/\/test/).map do |p|
+    java_files(true).grep_v(%r{/test}).map do |p|
       name = p.to_relative_path(local_repository)
       { name => File.read(p) }
     end

@@ -1,2 +1,2 @@
-export const hiddenStartLabel = /\/\/\ !\[/
-export const hiddenEndLabel = /\/\/\ !\]/
+export const hiddenStartLabel = /\/\/ !\[/
+export const hiddenEndLabel = /\/\/ !\]/

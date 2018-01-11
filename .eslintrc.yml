@@ -13,11 +13,6 @@ plugins:
 - react
 rules:
   prettier/prettier: error
-  no-unused-vars:
-    - error
-    - argsIgnorePattern: "^_"
-      caughtErrorsIgnorePattern: "^_"
-      varsIgnorePattern: "^h$|React"
   no-console:
   - error
   - allow:
