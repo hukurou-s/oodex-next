@@ -18,6 +18,10 @@ class Admin::MissionsController < Admin::ApplicationController
 
   def show; end
 
+  def update
+    binding.pry
+  end
+
   private
 
   def mission_params

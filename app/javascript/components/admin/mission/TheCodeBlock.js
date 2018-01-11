@@ -10,20 +10,21 @@ import { hiddenEndLabel } from './constants'
 const Box = styled.div`
   border: 1px solid gray;
   margin-bottom: 3px;
-  overflow-x: hidden;
+  overflow-y: hidden;
 `
 
 const Title = styled.h1`
-  line-height: 30px;
-  height: 30px;
+  line-height: 40px;
+  height: 40px;
   font-size: 16px;
   padding-left: 20px;
   display: inline-block;
 `
 
-const ToggleButton = styled.button`
+const ToggleButton = styled.span`
   border: 1px solid gray;
   border-radius: 30px;
+  padding: 4px;
   width: 44px;
   height: 24px;
   margin: 10px;

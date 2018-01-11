@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { hiddenStartLabel } from './constants'
 
-const BaseButton = styled.button`
-  position: absolute;
-  width: 100px;
-  height: 22px;
-  font-weight: 900;
+const BaseButton = styled.span`
   color: white;
-  z-index: 100;
-  left: calc(100% - 100px);
   cursor: pointer;
+  font-weight: 900;
+  height: 22px;
+  left: calc(100% - 100px);
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  z-index: 100;
 `
 
 const HideButton = styled(BaseButton)`

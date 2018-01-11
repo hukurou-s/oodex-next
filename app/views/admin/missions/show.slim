@@ -14,4 +14,10 @@ section.hero.is-info style="margin-bottom: 30px;"
 .container
   .columns
     .column.is-12
-      = react_component('MissionEditor', java_main_contents: @mission.java_main_contents)
+      .wrapper style="margin: 10px;"
+        - url = admin_session_mission_path(session_id: params[:session_id], id: @mission.id)
+        = form_with(url: url, method: :put, local: true) do |f|
+          = react_component('MissionEditor', java_main_contents: @mission.java_main_contents)
+          .field
+            .control
+              = f.submit '穴抜き箇所を登録する', class: 'button is-primary'
