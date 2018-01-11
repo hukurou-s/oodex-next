@@ -4,11 +4,14 @@ section.hero.is-warning
       h1.subtitle.is-s1
         | #{@mission.name}
 
-section.hefo.is-info style="margin-bottom: 30px;"
-  .hero-bofy
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
     .container
       h1.subtitle.is-s1
         | 授業の説明文
       p = @mission.detail
 
 .container
+  .columns
+    .column.is-12
+      = react_component('MissionEditor', java_main_contents: @mission.java_main_contents)

@@ -15,10 +15,13 @@
 #
 
 class Mission < ApplicationRecord
+  using JavaFileExtensions
   belongs_to :session
 
-  def java_files
-    files.grep(/\.java/)
+  def java_files(absolute = false)
+    java_files = files.grep(/\.java/)
+    return java_files if absolute
+    java_files.map { |f| f.gsub(Regexp.new(absolute_path), '') }
   end
 
   def java_main_files
@@ -29,13 +32,22 @@ class Mission < ApplicationRecord
     java_files.grep(/.*test*/)
   end
 
+  def java_main_contents
+    java_files(true).grep_v(%r{/test}).map do |p|
+      name = p.to_relative_path(local_repository)
+      { name => File.read(p) }
+    end
+  end
+
   private
 
   def files
-    Dir.glob("#{absolute_path}/**/*")
+    @files = Dir.glob("#{absolute_path}/**/*").sort if @files.nil?
+    @files
   end
 
   def absolute_path
-    Rails.root.join(local_repository)
+    @absolute_path = Rails.root.join(local_repository).to_s if @absolute_path.nil?
+    @absolute_path
   end
 end

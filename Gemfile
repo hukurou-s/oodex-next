@@ -27,6 +27,7 @@ gem 'slim-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
+gem 'webpacker-react', '~> 0.3.2'
 
 gem 'simplecov', require: false, group: :test
 gem 'simplecov-cobertura', require: false, group: :test
