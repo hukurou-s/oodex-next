@@ -28,6 +28,7 @@
     "reset.css": "^2.0.2",
     "rome": "^2.1.22",
     "styled-components": "^2.4.0",
+    "webpack-dashboard": "^1.0.2",
     "webpacker-react": "^0.3.2"
   },
   "devDependencies": {
