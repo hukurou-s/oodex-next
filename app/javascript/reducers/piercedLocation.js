@@ -21,7 +21,7 @@ const piercedLocation = createReducer(
       } else {
         state.push({ name, lines: concat(prevLines, lines) })
       }
-      return [ ...state ]
+      return [...state]
     },
     [actions.removePiercedLocation]: (state, payload) => {
       const { name, lines } = payload
@@ -29,12 +29,12 @@ const piercedLocation = createReducer(
       const prevLines = _.get(state, [index, 'lines'], [])
       state[index] = {
         name,
-        lines: _.difference(prevLines, lines),
+        lines: _.difference(prevLines, lines)
       }
-      return [ ...state ]
+      return [...state]
     }
   },
   initalState.piercedLocation
 )
 
-export default piercedLocation;
+export default piercedLocation

@@ -95,7 +95,7 @@ class TheCodeBlock extends Component {
 
     this.props.updatePiercedLocation({
       name,
-      lines: _.uniq(newHiddenLines.concat(newHiddenLines)),
+      lines: _.uniq(newHiddenLines.concat(newHiddenLines))
     })
 
     this.setState({
@@ -169,7 +169,7 @@ class TheCodeBlock extends Component {
   }
 }
 
-export default connect(
-  state => ({ piercedLocation: state.piercedLocation }),
-  { updatePiercedLocation, removePiercedLocation }
-)(TheCodeBlock)
+export default connect(state => ({ piercedLocation: state.piercedLocation }), {
+  updatePiercedLocation,
+  removePiercedLocation
+})(TheCodeBlock)
