@@ -1,11 +1,13 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import ReactDOM from 'react-dom'
 import autoBind from 'react-autobind'
 import styled from 'styled-components'
 import hljs from 'highlight.js'
 import LineWithNum from './TheLineWithNum'
 import { hiddenEndLabel } from './constants'
+import { updatePiercedLocation, removePiercedLocation } from '../../../actions'
 
 const Box = styled.div`
   border: 1px solid gray;
@@ -52,7 +54,7 @@ const generateEmptyBlock = (lines, num) => {
   return newHiddenLines
 }
 
-export default class TheCodeBlock extends Component {
+class TheCodeBlock extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -84,12 +86,17 @@ export default class TheCodeBlock extends Component {
 
   onHide(num) {
     const start = num
-    const { code } = this.props
+    const { code, name } = this.props
     const { hiddenLines, activeHideButtonState } = this.state
     const lines = code.split('\n')
 
     const newHiddenLines = generateEmptyBlock(lines, num + 1)
     activeHideButtonState.push(start)
+
+    this.props.updatePiercedLocation({
+      name,
+      lines: _.uniq(newHiddenLines.concat(newHiddenLines)),
+    })
 
     this.setState({
       activeHideButtonState,
@@ -99,18 +106,22 @@ export default class TheCodeBlock extends Component {
 
   onShow(num) {
     const start = num
-    const { code } = this.props
-    const { hiddenLines, activeHideButtonState } = this.state
+    const { code, name, piercedLocation } = this.props
+    const { activeHideButtonState } = this.state
+    const target = piercedLocation.find(itr => itr.name === name)
+    const hiddenLines = _.get(target, ['lines'], [])
     const lines = code.split('\n')
     const newHiddenLines = _.difference(hiddenLines, generateEmptyBlock(lines, num))
 
     const index = activeHideButtonState.findIndex(i => i === start)
     if (index !== -1) delete activeHideButtonState[index]
 
-    this.setState({
-      hiddenLines: newHiddenLines,
-      activeHideButtonState
+    this.props.removePiercedLocation({
+      name,
+      lines: generateEmptyBlock(lines, num)
     })
+
+    this.setState({ activeHideButtonState })
   }
 
   onLineSelect(num) {
@@ -126,8 +137,10 @@ export default class TheCodeBlock extends Component {
   }
 
   render() {
-    const { code, name } = this.props
-    const { selected, hiddenLines, activeHideButtonState } = this.state
+    const { code, name, piercedLocation } = this.props
+    const index = piercedLocation.findIndex(itr => itr.name === name)
+    const hiddenLines = _.get(piercedLocation, [index, 'lines'], [])
+    const { selected, activeHideButtonState } = this.state
     return (
       <Box>
         <div style={{ borderBottom: '1px solid gray' }}>
@@ -155,3 +168,8 @@ export default class TheCodeBlock extends Component {
     )
   }
 }
+
+export default connect(
+  state => ({ piercedLocation: state.piercedLocation }),
+  { updatePiercedLocation, removePiercedLocation }
+)(TheCodeBlock)

@@ -1,5 +1,5 @@
 const { environment } = require('@rails/webpacker')
-const DashboardPlugin = require('webpack-dashboard/plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin')
 const webpack = require('webpack')
 
 const config = Object.assign({}, environment.toWebpackConfig(), {
@@ -13,7 +13,7 @@ const config = Object.assign({}, environment.toWebpackConfig(), {
       }
     ]
   },
-  devtool: process.env.RAILS_ENV === 'development' ? 'cheap-module-eval-source-map' : 'eval',
+  devtool: process.env.RAILS_ENV === 'development' ? 'cheap-module-eval-source-map' : 'eval'
 })
 
 config.plugins.push(new webpack.NamedModulesPlugin())

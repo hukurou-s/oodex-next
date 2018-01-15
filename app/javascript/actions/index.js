@@ -1,5 +1,4 @@
 const { createAction } = require('redux-act')
 
-const updatePiercedLocation = createAction('specify to pierced location in source code by admin.')
-
-export { updatePiercedLocation }
+export const updatePiercedLocation = createAction('update to pierced location in source code')
+export const removePiercedLocation = createAction('remove to pierced location in source code')
