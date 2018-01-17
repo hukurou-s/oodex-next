@@ -95,21 +95,17 @@ class TheCodeBlock extends Component {
 
     this.props.updatePiercedLocation({
       name,
-      lines: _.uniq(newHiddenLines.concat(newHiddenLines))
+      lines: _.uniq(newHiddenLines)
     })
 
-    this.setState({
-      activeHideButtonState,
-      hiddenLines: hiddenLines.concat(newHiddenLines)
-    })
+    this.setState({ activeHideButtonState })
   }
 
   onShow(num) {
     const start = num
     const { code, name, piercedLocation } = this.props
     const { activeHideButtonState } = this.state
-    const target = piercedLocation.find(itr => itr.name === name)
-    const hiddenLines = _.get(target, ['lines'], [])
+    const hiddenLines = _.flatten(_.get(piercedLocation, [name], []))
     const lines = code.split('\n')
     const newHiddenLines = _.difference(hiddenLines, generateEmptyBlock(lines, num))
 
@@ -138,8 +134,6 @@ class TheCodeBlock extends Component {
 
   render() {
     const { code, name, piercedLocation } = this.props
-    const index = piercedLocation.findIndex(itr => itr.name === name)
-    const hiddenLines = _.get(piercedLocation, [index, 'lines'], [])
     const { selected, activeHideButtonState } = this.state
     return (
       <Box>
@@ -157,7 +151,7 @@ class TheCodeBlock extends Component {
                   index={i}
                   line={line}
                   selected={selected}
-                  hiddenLines={hiddenLines}
+                  hiddenLines={_.flatten(piercedLocation[name])}
                   activeHideButtonState={activeHideButtonState}
                   onShow={this.onShow}
                   onHide={this.onHide}
