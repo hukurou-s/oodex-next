@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -9,7 +10,6 @@ const Hidden = styled.div`
 const Form = ({ piercedLocation }) => {
   const keys = Object.keys(piercedLocation)
   const loc = piercedLocation
-  console.log(loc)
   return (
     <Hidden>
       {keys.map(key =>

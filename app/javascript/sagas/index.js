@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects'
 
 function* sampleSaga() {
   yield put(`WIP`)
