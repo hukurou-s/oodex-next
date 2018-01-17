@@ -2,7 +2,7 @@
 
 class Admin::MissionsController < Admin::ApplicationController
   before_action :set_session, only: %i[new]
-  before_action :set_mission, only: %i[edit show]
+  before_action :set_mission, only: %i[edit show update]
 
   def new
     @mission = @session.missions.new
@@ -17,6 +17,19 @@ class Admin::MissionsController < Admin::ApplicationController
   def edit; end
 
   def show; end
+
+  def update
+    @mission.java_files.each do |file|
+      params[:locations].fetch(file, nil)&.permit!.to_h.map do |_key, value|
+        next unless value.respond_to?(:map)
+        PiercedLocation.create(
+          mission: @mission,
+          lines: value.map(&:to_i),
+          file_name: file
+        )
+      end
+    end
+  end
 
   private
 

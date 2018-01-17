@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import Form from './Form'
 import TheCodeBlock from './TheCodeBlock'
+import createStore from '../../../stores'
 
-export default function MissonEditor({ java_main_contents }) {
+const store = createStore()
+
+export default function MissonEditor({ javaMainContents }) {
   return (
-    <div className="container">
-      {java_main_contents.map((content, index) =>
-        Object.keys(content).map(name => (
-          <TheCodeBlock key={name} name={name} code={content[name]} />
-        ))
-      )}
-    </div>
+    <Provider store={store}>
+      <div className="container">
+        {javaMainContents.map((content, index) =>
+          Object.keys(content).map(name => (
+            <TheCodeBlock key={name} name={name} code={content[name]} />
+          ))
+        )}
+        <Form />
+      </div>
+    </Provider>
   )
 }
