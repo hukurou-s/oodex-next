@@ -4,13 +4,12 @@ import { connect } from 'react-redux'
 import Header from './Header'
 import { initializeMetaOfProblemEditor } from '../../../actions'
 
-
 class TheProblemEditor extends React.Component {
   componentDidMount() {
     const { piercedLocations, javaMainContents } = this.props
     this.props.initializeMetaOfProblemEditor({
       piercedLocations,
-      javaMainContents,
+      javaMainContents
     })
   }
 

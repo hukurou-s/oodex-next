@@ -4,5 +4,5 @@ export const PiercedLocationState = {
   // - L1: 隠蔽し，実行する箇所 (出題はしないが，ブラックボックスにする)
   L1: Symbol('L1'),
   // - L2: 隠蔽し，実行しない箇所 (出題して設問の解答となる箇所)
-  L2: Symbol('L2'),
+  L2: Symbol('L2')
 }

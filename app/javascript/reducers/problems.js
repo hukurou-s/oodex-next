@@ -5,15 +5,15 @@ import { initalState } from './initialState'
 import * as actions from '../actions'
 import { PiercedLocationState } from '../components/admin/problem/constants'
 
-const createProblem = (state) => {
+const createProblem = state => {
   const piercedLocationStateList = state.meta.piercedLocations.map((l, i) => ({
     id: l.id,
     level: PiercedLocationState.L0,
-    target: state.meta.targets[i],
+    target: state.meta.targets[i]
   }))
   return {
     name: '',
-    piercedLocationStateList,
+    piercedLocationStateList
   }
 }
 

@@ -19,10 +19,7 @@ const Button = styled.a`
 const Header = ({ addProblem }) => {
   return (
     <Div>
-      <Button
-        className='button is-primary'
-        onClick={addProblem}
-      >
+      <Button className="button is-primary" onClick={addProblem}>
         問題を追加
       </Button>
     </Div>

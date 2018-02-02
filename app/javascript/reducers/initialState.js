@@ -5,7 +5,7 @@ export const initalState = {
     meta: {
       piercedLocations: [],
       javaMainContents: [],
-      targets: [],
+      targets: []
     }
-  },
+  }
 }
