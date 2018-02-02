@@ -1,0 +1,11 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 設問の作成 （穴抜き箇所の設定）
+.container
+  .columns
+    .column.is-12
+      = react_component('ProblemEditor',
+        piercedLocations: @mission.pierced_locations,
+        javaMainContents: @mission.java_main_contents)

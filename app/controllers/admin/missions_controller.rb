@@ -29,6 +29,7 @@ class Admin::MissionsController < Admin::ApplicationController
         )
       end
     end
+    redirect_to new_admin_session_mission_problems_path(params[:session_id], params[:id])
   end
 
   private

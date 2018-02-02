@@ -13,4 +13,14 @@
 #
 
 class Problem < ApplicationRecord
+  belongs_to :mission
+
+  def pierced_locations
+    mission.pierced_locations
+  end
+
+  def mission
+    @mission = Mission.find_by(mission_id: mission_id) if @mission.nil?
+    @mission
+  end
 end

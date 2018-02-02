@@ -17,6 +17,7 @@
 class Mission < ApplicationRecord
   using JavaFileExtensions
   has_many :pierced_locations
+  has_many :problems
   belongs_to :session
 
   def java_files(absolute = false)
