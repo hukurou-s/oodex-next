@@ -9,10 +9,7 @@ export default function ProblemEditor({ piercedLocations, javaMainContents }) {
   return (
     <Provider store={store}>
       <div className="container">
-        <TheProblemEditor
-          piercedLocations={piercedLocations}
-          javaMainContents={javaMainContents}
-        />
+        <TheProblemEditor piercedLocations={piercedLocations} javaMainContents={javaMainContents} />
       </div>
     </Provider>
   )
