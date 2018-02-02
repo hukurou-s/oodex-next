@@ -26,6 +26,11 @@ class Mission < ApplicationRecord
     java_files.map { |f| f.gsub(Regexp.new(absolute_path), '') }
   end
 
+  def test_names
+    json = File.read "#{local_repository}/tests.json"
+    JSON.parse(json).map { |i| i['name'] }
+  end
+
   def java_main_files
     java_files.grep(/.*main*/)
   end

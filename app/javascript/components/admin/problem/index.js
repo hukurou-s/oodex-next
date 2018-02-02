@@ -5,11 +5,11 @@ import TheProblemEditor from './TheProblemEditor'
 
 const store = createStore()
 
-export default function ProblemEditor({ piercedLocations, javaMainContents }) {
+export default function ProblemEditor(props) {
   return (
     <Provider store={store}>
       <div className="container">
-        <TheProblemEditor piercedLocations={piercedLocations} javaMainContents={javaMainContents} />
+        <TheProblemEditor {...props} />
       </div>
     </Provider>
   )

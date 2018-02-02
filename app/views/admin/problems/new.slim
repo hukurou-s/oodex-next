@@ -8,4 +8,5 @@ section.hero.is-warning
     .column.is-12
       = react_component('ProblemEditor',
         piercedLocations: @mission.pierced_locations,
-        javaMainContents: @mission.java_main_contents)
+        javaMainContents: @mission.java_main_contents,
+        testList: @mission.test_names)

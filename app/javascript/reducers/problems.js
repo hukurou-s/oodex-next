@@ -37,6 +37,7 @@ const problems = createReducer(
       const nextState = immer(state, draft => {
         draft.meta.piercedLocations = payload.piercedLocations
         draft.meta.javaMainContents = payload.javaMainContents
+        draft.meta.testList = payload.testList
         draft.meta.targets = targets
       })
       return nextState

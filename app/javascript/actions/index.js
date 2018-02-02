@@ -7,3 +7,4 @@ export const removePiercedLocation = createAction('remove to pierced location in
 // /admin/problems
 export const initializeMetaOfProblemEditor = createAction('initialize meta of problem editor')
 export const addProblem = createAction('addition problems with state of piercedLocations')
+export const changeProblemName = createAction('change problems name')
