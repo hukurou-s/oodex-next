@@ -20,23 +20,24 @@ class TheProblemEditor extends React.Component {
     return (
       <div>
         <Header />
-        {
-          this.props.problems.map((p, i) => (
-            <ThePircedLocationStateEditor
-              key={Math.random()}
-              id={i}
-              problem={p}
-              testList={this.props.testList}
-            />
-          ))
-        }
+        {this.props.problems.map((p, i) => (
+          <ThePircedLocationStateEditor
+            key={Math.random()}
+            id={i}
+            problem={p}
+            testList={this.props.testList}
+          />
+        ))}
       </div>
     )
   }
 }
 
-export default connect(state => ({
-  problems: state.problems.data,
-}), {
-  initializeMetaOfProblemEditor
-})(TheProblemEditor)
+export default connect(
+  state => ({
+    problems: state.problems.data
+  }),
+  {
+    initializeMetaOfProblemEditor
+  }
+)(TheProblemEditor)

@@ -21,7 +21,6 @@ const Form1 = styled.div`
 const Form2 = styled.div`
   position: absolute;
   left: 150px;
-
 `
 
 const Pre = styled.pre`
@@ -32,10 +31,7 @@ const Pre = styled.pre`
 export default function ThePircedLocationStateEditor({ problem, testList }) {
   return (
     <Box>
-      <input
-        type="text"
-        value={problem.name}
-      />
+      <input type="text" value={problem.name} />
       <div>
         {problem.piercedLocationStateList.map(l => (
           <Li key={Math.random()}>
@@ -43,24 +39,14 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
               <label className="label is-small">出題方式</label>
               <div className="select">
                 <select>
-                  {Object.keys(PiercedLocationState).map(key => (
-                    <option key={key}>
-                      {key}
-                    </option>
-                  ))}
+                  {Object.keys(PiercedLocationState).map(key => <option key={key}>{key}</option>)}
                 </select>
               </div>
             </Form1>
             <Form2 className="control">
               <label className="label is-small">対応テスト</label>
               <div className="select">
-                <select>
-                  {testList.map(key => (
-                    <option key={key}>
-                      {key}
-                    </option>
-                  ))}
-                </select>
+                <select>{testList.map(key => <option key={key}>{key}</option>)}</select>
               </div>
             </Form2>
             <Pre>{l.target}</Pre>

@@ -6,7 +6,7 @@ export const initalState = {
       piercedLocations: [],
       javaMainContents: [],
       targets: [],
-      testList: [],
+      testList: []
     }
   }
 }
