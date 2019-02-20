@@ -20,12 +20,13 @@ class Admin::MissionsController < Admin::ApplicationController
 
   def update
     @mission.java_files.each do |file|
-      params[:locations].fetch(file, nil)&.permit!.to_h.map do |_key, value|
+      params[:locations].fetch(file, nil)&.permit!.to_h.map do |key, value|
         next unless value.respond_to?(:map)
         PiercedLocation.create(
           mission: @mission,
           lines: value.map(&:to_i),
-          file_name: file
+          file_name: file,
+          location_id: (key.to_i+1)
         )
       end
     end
