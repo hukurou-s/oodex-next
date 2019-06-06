@@ -3,6 +3,12 @@ section.hero.is-warning
     .container
       h1.subtitle.is-s1
         | 設問の作成 （穴抜き箇所の設定）
+    .columns style="float: right; margin-right: 30px"
+      = form_with(model: [:admin, :session, :mission, @problem], local: true) do |f|
+        .field.is-grouped
+          .control
+            = f.submit '穴抜き箇所を登録', class: 'button is-link'
+
 .container
   .columns
     .column.is-12

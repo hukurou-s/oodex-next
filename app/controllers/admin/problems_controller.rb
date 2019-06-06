@@ -4,7 +4,9 @@ class Admin::ProblemsController < Admin::ApplicationController
   before_action :set_session
   before_action :set_mission
 
-  def new; end
+  def new
+    @problem = @mission.problems.new
+  end
 
   private
 
