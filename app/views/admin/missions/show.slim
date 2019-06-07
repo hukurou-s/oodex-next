@@ -22,6 +22,6 @@ section.hero.is-info style="margin-bottom: 30px;"
               - if Mission.last.pierced_locations&.size.zero?
                 = f.submit '穴抜き箇所を登録する', class: 'button is-primary'
               - else
-                = link_to '設問を登録する', '#', class: 'button is-info'
+                = link_to '設問を登録する', new_admin_session_mission_problems_path(params[:session_id], mission_id: @mission.id), class: 'button is-info'
         .wrapper style="margin: 10px;"
           = react_component('MissionEditor', javaMainContents: @mission.java_main_contents)
