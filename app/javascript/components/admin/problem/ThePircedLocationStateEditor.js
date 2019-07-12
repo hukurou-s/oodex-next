@@ -35,10 +35,11 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
       <div>
         {problem.piercedLocationStateList.map(l => (
           <Li key={Math.random()}>
+            <input type="hidden" name="pirced-location-id[]" value={l.id}/>
             <Form1 className="control">
               <label className="label is-small">出題方式</label>
               <div className="select">
-                <select>
+                <select name="labels[]">
                   {Object.keys(PiercedLocationState).map(key => <option key={key}>{key}</option>)}
                 </select>
               </div>
@@ -46,7 +47,7 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
             <Form2 className="control">
               <label className="label is-small">対応テスト</label>
               <div className="select">
-                <select>{testList.map(key => <option key={key}>{key}</option>)}</select>
+                <select name="tests[]">{testList.map(key => <option key={key}>{key}</option>)}</select>
               </div>
             </Form2>
             <Pre>{l.target}</Pre>
