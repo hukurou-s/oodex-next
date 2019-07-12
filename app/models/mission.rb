@@ -31,6 +31,13 @@ class Mission < ApplicationRecord
     JSON.parse(json).map { |i| i['name'] }
   end
 
+  def test_commands
+    json = File.read "#{local_repository}/tests.json"
+    names = JSON.parse(json).map { |i| i['name'] }
+    commands = JSON.parse(json).map { |i| i['command']}
+    Hash[names.zip(commands)]
+  end
+
   def java_main_files
     java_files.grep(/.*main*/)
   end

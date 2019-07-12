@@ -1,0 +1,12 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | #{@problem.name}
+
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 大問の説明文
+      p = @problem.detail
