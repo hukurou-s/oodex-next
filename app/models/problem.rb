@@ -20,7 +20,7 @@ class Problem < ApplicationRecord
   end
 
   def mission
-    @mission = Mission.find_by(mission_id: mission_id) if @mission.nil?
+    @mission = Mission.find_by(id: mission_id) if @mission.nil?
     @mission
   end
 end
