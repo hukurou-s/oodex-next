@@ -14,6 +14,7 @@
 
 class Problem < ApplicationRecord
   belongs_to :mission
+  has_many :problem_tests, through: :tests
 
   def pierced_locations
     mission.pierced_locations
