@@ -26,7 +26,7 @@ class Admin::MissionsController < Admin::ApplicationController
           mission: @mission,
           lines: value.map(&:to_i),
           file_name: file,
-          location_id: (key.to_i+1)
+          location_id: (key.to_i + 1)
         )
       end
     end

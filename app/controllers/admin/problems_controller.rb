@@ -10,31 +10,43 @@ class Admin::ProblemsController < Admin::ApplicationController
   end
 
   def create
-    @problem = Problem.create(
-      mission: @mission,
-      name: params[:problem][:name],
-      detail: params[:problem][:detail],
-    )
-
-    test_command_list =  @mission.test_commands
-    params['pirced-location-id'].each_with_index do |id, index|
-      test_name = params[:tests][index]
-
-      test = Test.create(
-        mission: @mission,
-        test_name: test_name,
-        test_command: test_command_list[test_name],
-        pierced_location_id: id
-      )
-
-      ProblemTest.create(
-        problem_id: @problem.id,
-        test_id: test.id,
-        pierced_level: params[:labels][index]
-      )
+    @problem = Problem.new(problem_params)
+    unless @problem.save
+      logger.info problem_errors: @problem.errors.full_messages
+      flash[:alert] = "fail to create problem #{@problem.errors.full_messages.join(' ')}"
+      render :new
     end
 
-    redirect_to admin_session_mission_problems_path(params[:session_id], params[:mission_id], id: @problem.to_param)
+    test_command_list = @mission.test_commands
+    tests = Test.where("mission_id = ?", params[:mission_id])
+
+    params[:tests].each_with_index do |test, index|
+      @test = tests.find_by(test_name: test)
+      if @test.nil?
+        @test = Test.new(
+          mission: @mission,
+          test_name: test,
+          test_command: test_command_list[test],
+          pierced_location_id: params['pirced-location-id'][index]
+        )
+      end
+
+      @problem_test = @test.problem_tests.build(
+        problem: @problem,
+        pierced_level: params[:labels][index]
+      )
+      unless @test.save
+        logger.info test_errors: @test.errors.full_messages
+        flash[:alert] = "fail to create test #{@test.errors.full_messages.join(' ')}"
+        render :new
+      end
+    end
+
+    redirect_to admin_session_mission_problems_path(
+                  params[:session_id],
+                  params[:mission_id],
+                  id: @problem.to_param
+                )
   end
 
   def show; end
@@ -53,5 +65,10 @@ class Admin::ProblemsController < Admin::ApplicationController
     @session = Session.find(params[:session_id])
   end
 
+  def problem_params
+    params.require(:problem).permit(
+      :name,
+      :detail
+    ).merge(mission: @mission)
+  end
 end
-
