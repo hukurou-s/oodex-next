@@ -61,33 +61,42 @@ jobs:
           name: run rubocop
           command: |
             bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter | ~/bin/reviewdog -f=checkstyle -name="rubocop" -diff="git diff" -ci="circle-ci"
+          when: always
 
       - run:
           name: run slim-lint
           command: |
             bundle exec slim-lint app/views
+          when: always
 
       - run:
           name: run eslint
           command: |
             $(npm bin)/eslint -f checkstyle app/**/*.js | ~/bin/reviewdog -f checkstyle -name="eslint" -ci="circle-ci" -diff="git diff"
+          when: always
 
       - run:
           name: run breakman
           command: |
             bundle exec brakeman -z
+          when: always
 
       - run:
           name: bundle-audit
           command: |
             bundle exec bundle-audit check --update
+          when: always
 
       - run: RAILS_ENV=test bundle exec rake assets:precompile
+        when: always
 
       # asstes tests
       - run: npm test
+        when: always
 
       - run: RAILS_ENV=test bundle exec rake db:migrate:reset
+        when: always
 
       # run rspec
       - run: RAILS_ENV=test bundle exec rspec
+        when: always
