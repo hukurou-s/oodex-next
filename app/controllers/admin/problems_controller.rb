@@ -18,7 +18,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     test_command_list = @mission.test_commands
-    tests = Test.where("mission_id = ?", params[:mission_id])
+    tests = Test.where('mission_id = ?', params[:mission_id])
 
     params[:tests].each_with_index do |test, index|
       @test = tests.find_by(test_name: test)
@@ -35,18 +35,14 @@ class Admin::ProblemsController < Admin::ApplicationController
         problem: @problem,
         pierced_level: params[:labels][index]
       )
-      unless @test.save
-        logger.info test_errors: @test.errors.full_messages
-        flash[:alert] = "fail to create test #{@test.errors.full_messages.join(' ')}"
-        render :new
-      end
+      next if @test.save
+      logger.info test_errors: @test.errors.full_messages
+      flash[:alert] = "fail to create test #{@test.errors.full_messages.join(' ')}"
+      render :new
+      break
     end
 
-    redirect_to admin_session_mission_problems_path(
-                  params[:session_id],
-                  params[:mission_id],
-                  id: @problem.to_param
-                )
+    redirect_to action: 'show', id: @problem
   end
 
   def show; end

@@ -34,7 +34,7 @@ class Mission < ApplicationRecord
   def test_commands
     json = File.read "#{local_repository}/tests.json"
     names = JSON.parse(json).map { |i| i['name'] }
-    commands = JSON.parse(json).map { |i| i['command']}
+    commands = JSON.parse(json).map { |i| i['command'] }
     Hash[names.zip(commands)]
   end
 
