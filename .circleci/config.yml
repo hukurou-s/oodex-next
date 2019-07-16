@@ -79,24 +79,18 @@ jobs:
           name: run breakman
           command: |
             bundle exec brakeman -z
-          when: always
 
       - run:
           name: bundle-audit
           command: |
             bundle exec bundle-audit check --update
-          when: always
 
       - run: RAILS_ENV=test bundle exec rake assets:precompile
-        when: always
 
       # asstes tests
       - run: npm test
-        when: always
 
       - run: RAILS_ENV=test bundle exec rake db:migrate:reset
-        when: always
 
       # run rspec
       - run: RAILS_ENV=test bundle exec rspec
-        when: always
