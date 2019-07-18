@@ -6,3 +6,8 @@ class Test < ApplicationRecord
   has_many :problem_tests
   has_many :problems, through: :problem_tests
 end
+
+def report_errors
+  logger.info test_errors: errors.full_messages
+  "fail to create test #{errors.full_messages.join(' ')}"
+end

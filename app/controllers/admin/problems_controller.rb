@@ -12,35 +12,12 @@ class Admin::ProblemsController < Admin::ApplicationController
   def create
     @problem = Problem.new(problem_params)
     unless @problem.save
-      logger.info problem_errors: @problem.errors.full_messages
-      flash[:alert] = "fail to create problem #{@problem.errors.full_messages.join(' ')}"
-      render :new
+      flash[:alert] = @problem.report_errors
+      render :new && return
     end
 
-    test_command_list = @mission.test_commands
-    tests = Test.where('mission_id = ?', params[:mission_id])
-
-    params[:tests].each_with_index do |test, index|
-      @test = tests.find_by(test_name: test)
-      if @test.nil?
-        @test = Test.new(
-          mission: @mission,
-          test_name: test,
-          test_command: test_command_list[test],
-          pierced_location_id: params['pirced-location-id'][index]
-        )
-      end
-
-      @problem_test = @test.problem_tests.build(
-        problem: @problem,
-        pierced_level: params[:labels][index]
-      )
-      next if @test.save
-      logger.info test_errors: @test.errors.full_messages
-      flash[:alert] = "fail to create test #{@test.errors.full_messages.join(' ')}"
-      render :new
-      break
-    end
+    result = @problem.register_test(params[:tests], params[:labels], params['pirced-location-id'])
+    flash[:alert] = result[:error]
 
     redirect_to action: 'show', id: @problem
   end
