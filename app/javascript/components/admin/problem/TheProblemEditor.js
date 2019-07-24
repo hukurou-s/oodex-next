@@ -16,7 +16,6 @@ class TheProblemEditor extends React.Component {
   }
 
   render() {
-    console.log(this.props.testList)
     return (
       <div>
         <Header />
