@@ -5,6 +5,12 @@ class Admin::ProblemsController < Admin::ApplicationController
   before_action :set_mission
   before_action :set_problem, only: %i[show]
 
+  def index
+    problems = Problem.where('mission_id = ?', @mission.id).order('name')
+    @q = problems.ransack(params[:q])
+    @problems = @q.result&.page(params[:page] || 1)&.per(10)
+  end
+
   def new
     @problem = @mission.problems.new
   end
