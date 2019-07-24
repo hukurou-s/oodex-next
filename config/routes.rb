@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       put '/activate' => 'sessions#activate', as: :activate
       put '/inactivate' => 'sessions#inactivate', as: :inactivate
       resources :missions do
-        resource :problems
+        resources :problems
       end
     end
   end
