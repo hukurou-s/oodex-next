@@ -3,7 +3,7 @@
 class Admin::ProblemsController < Admin::ApplicationController
   before_action :set_session
   before_action :set_mission
-  before_action :set_problem, only: %i[show]
+  before_action :set_problem, only: %i[edit show update]
 
   def index
     problems = Problem.where('mission_id = ?', @mission.id).order('name')
@@ -28,7 +28,18 @@ class Admin::ProblemsController < Admin::ApplicationController
     redirect_to action: 'show', id: @problem
   end
 
+  def edit; end
+
   def show; end
+
+  def update
+    if @problem.update(problem_params)
+      flash[:notice] = '大問を更新しました'
+      redirect_to action: 'index'
+    else
+      flash[:alert] = @problem.report_errors
+    end
+  end
 
   private
 

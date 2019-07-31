@@ -46,7 +46,9 @@ section.hero.is-warning
               td.admin-problems__item--ui
                 .field.has-addons.is-center
                   .control
-                    = link_to '編集', '#', class: 'button is-primary is-small'
+                    = link_to('編集',
+                      edit_admin_session_mission_problem_url(@session, @mission, p),
+                      class: 'button is-primary is-small')
               td.admin-problems__item--name
                 = link_to p.name, admin_session_mission_problem_url(@session, @mission, p)
               td.admin-problems__item--detail = p.detail
