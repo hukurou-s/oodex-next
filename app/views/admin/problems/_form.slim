@@ -1,0 +1,36 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 大問の#{action_name == 'new' ? '作成' : '編集'} （穴抜き箇所の設定）
+.container
+  .columns
+    .column.is-12
+      = form_with(model: [:admin, @session, @mission, @problem], local: true) do |f|
+        .field
+          = f.label '名前', class: 'label'
+          p.help
+            span.fa.fa-info-circle aria-hidden="true"
+            | 大問のタイトルを入力してください。 (例 : クイックソートの実装)
+          .control
+            = f.text_field :name, class: 'input name', value: @problem.name
+        .field
+          = f.label '問題詳細', class: 'label'
+          p.help
+            span.fa.fa-info-circle aria-hidden="true"
+            | 問題の概要を入力してください。 (例 : クイックソートを実装する。QuickSortクラス及び関連するクラスやメソッドを実装する。
+          p.help
+            span.fa.fa-exclamation-circle aria-hidden="true"
+            | 複数行入力できます
+          .control
+            = f.text_area :detail, class: 'textarea detail', value: @problem.detail
+
+        .wrapper
+          = react_component('ProblemEditor',
+          piercedLocations: @mission.pierced_locations,
+          javaMainContents: @mission.java_main_contents,
+          testList: @mission.test_names)
+        .wrapper
+        .field style="margin-left: 10px; margin-top: 20px; margin-bottom: 20px"
+          .control
+            = f.submit action_name == 'new' ? '大問登録' : '大問更新', class: 'button is-link'
