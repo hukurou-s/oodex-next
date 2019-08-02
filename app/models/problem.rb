@@ -30,7 +30,7 @@ class Problem < ApplicationRecord
     @registered_tests = Test.where('mission_id = ?', mission.id)
     result = { test_list: [], error: nil }
 
-    test_names.each_with_index do |test_name, i|
+    test_names&.each_with_index do |test_name, i|
       @test = new_test(test_name, labels[i], pirced_location_ids[i])
       test = @test.save
       test ? result[:test_list] << test : result[:error] = @test.report_errors && break
