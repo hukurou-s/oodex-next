@@ -30,7 +30,14 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def edit; end
 
-  def show; end
+  def show
+    @test_list = PiercedLocation.joins(tests: [problem_tests: :problem])
+                                .merge(Problem.where(id: @problem.id))
+                                .select(
+                                  'pierced_locations.lines, tests.test_name, tests.test_command,
+                                  problem_tests.score, problem_tests.pierced_level'
+                                )
+  end
 
   def update
     if @problem.update(problem_params)

@@ -10,3 +10,25 @@ section.hero.is-info style="margin-bottom: 30px;"
       h1.subtitle.is-s1
         | 大問の説明文
       p = @problem.detail
+
+.container
+  table.table.is-striped.admin-problem-test__table
+    thead
+      tr
+        th.admin-problem-test__item--name
+          b = 'テスト名'
+        th.admin-problem-test__item--command
+          b = 'テストコマンド'
+        th.admin-problem-test__item--score
+          b = 'スコア'
+        th.admin-problem-test__item--pierced_level
+          b = '穴抜き箇所のレベル'
+    tbody
+      - @test_list.each do |tl|
+        tr
+          td.admin-problem-test__item--name = tl[:test_name]
+          td.admin-problem-test__item--command = tl[:test_command]
+          td.admin-problem-test__item--score = tl[:score]
+          td.admin-problem-test__item--pierced_level
+            = ProblemTest.new(pierced_level: tl[:pierced_level]).pierced_level
+
