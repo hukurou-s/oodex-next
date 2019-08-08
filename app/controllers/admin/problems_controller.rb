@@ -44,7 +44,7 @@ class Admin::ProblemsController < Admin::ApplicationController
       flash[:notice] = '大問を更新しました'
       redirect_to action: 'index'
     else
-      flash[:alert] = @problem.report_errors
+      render :edit, flash: { alert: @problem.report_errors }
     end
   end
 
