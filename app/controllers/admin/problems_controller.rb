@@ -51,11 +51,11 @@ class Admin::ProblemsController < Admin::ApplicationController
   private
 
   def set_problem
-    @problem = Problem.find(params[:id])
+    @problem = @mission.problems.find(params[:id])
   end
 
   def set_mission
-    @mission = Mission.find(params[:mission_id])
+    @mission = @session.missions.find(params[:mission_id])
   end
 
   def set_session
