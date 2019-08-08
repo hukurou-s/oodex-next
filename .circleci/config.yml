@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
        - image: circleci/ruby:2.4.1-node-browsers
-       - image: library/mysql:latest
+       - image: library/mysql:5.7
          environment:
            - MYSQL_ALLOW_EMPTY_PASSWORD=true
            - REVIEWDOG_VERSION=0.9.8
