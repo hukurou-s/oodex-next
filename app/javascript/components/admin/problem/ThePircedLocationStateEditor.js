@@ -40,7 +40,9 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
               <label className="label is-small">出題方式</label>
               <div className="select">
                 <select name="labels[]">
-                  {Object.keys(PiercedLocationState).map(key => <option key={key}>{key}</option>)}
+                  {Object.keys(PiercedLocationState).map(key => (
+                    <option key={key}>{key}</option>
+                  ))}
                 </select>
               </div>
             </Form1>
@@ -48,7 +50,9 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
               <label className="label is-small">対応テスト</label>
               <div className="select">
                 <select name="tests[]">
-                  {testList.map(key => <option key={key}>{key}</option>)}
+                  {testList.map(key => (
+                    <option key={key}>{key}</option>
+                  ))}
                 </select>
               </div>
             </Form2>

@@ -26,6 +26,9 @@ const Header = ({ addProblem }) => {
   )
 }
 
-export default connect(state => ({}), {
-  addProblem
-})(Header)
+export default connect(
+  state => ({}),
+  {
+    addProblem
+  }
+)(Header)
