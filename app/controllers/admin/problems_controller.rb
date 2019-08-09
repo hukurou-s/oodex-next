@@ -6,7 +6,7 @@ class Admin::ProblemsController < Admin::ApplicationController
   before_action :set_problem, only: %i[edit show update]
 
   def index
-    problems = Problem.where('mission_id = ?', @mission.id).order('name')
+    problems = Problem.of_mission(@mission.id).order(:name)
     @q = problems.ransack(params[:q])
     @problems = @q.result&.page(params[:page] || 1)&.per(10)
   end
@@ -31,12 +31,7 @@ class Admin::ProblemsController < Admin::ApplicationController
   def edit; end
 
   def show
-    @test_list = PiercedLocation.joins(tests: [problem_tests: :problem])
-                                .merge(Problem.where(id: @problem.id))
-                                .select(
-                                  'pierced_locations.lines, tests.test_name, tests.test_command,
-                                  problem_tests.score, problem_tests.pierced_level'
-                                )
+    @test_list = PiercedLocation.of_problem_with_test_info(@problem.id)
   end
 
   def update

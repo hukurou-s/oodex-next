@@ -17,6 +17,8 @@ class Problem < ApplicationRecord
   has_many :problem_tests
   has_many :tests, through: :problem_tests
 
+  scope :of_mission, ->(mission_id) { where(mission_id: mission_id) }
+
   def pierced_locations
     mission.pierced_locations
   end
