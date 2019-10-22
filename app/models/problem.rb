@@ -14,6 +14,7 @@
 
 class Problem < ApplicationRecord
   belongs_to :mission
+  has_many :questions
   has_many :problem_tests
   has_many :tests, through: :problem_tests
 
