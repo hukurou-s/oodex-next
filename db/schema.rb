@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191022051848) do
+ActiveRecord::Schema.define(version: 20191022052609) do
 
   create_table "missions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "session_id", null: false
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 20191022051848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_projects_on_session_id"
+  end
+
+  create_table "question_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "question_id", null: false
+    t.integer "test_id", null: false
+    t.integer "score", default: 50, null: false
+    t.integer "pierced_level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
