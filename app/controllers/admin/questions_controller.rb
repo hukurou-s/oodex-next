@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class Admin::QuestionsController < ApplicationController
   before_action :set_session
   before_action :set_mission
-
   before_action :set_problem
 
   def new
