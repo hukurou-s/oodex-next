@@ -30,7 +30,7 @@ class Problem < ApplicationRecord
   end
 
   def register_test(test_names, labels, pirced_location_ids)
-    @registered_tests = Test.where('mission_id = ?', mission.id)
+    @registered_tests = Test.of_mission(mission.id)
     result = { test_list: [], error: nil }
 
     test_names&.each_with_index do |test_name, i|
