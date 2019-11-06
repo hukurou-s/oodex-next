@@ -12,9 +12,7 @@ class Admin::QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    unless @question.save
-      render :new, flash: { alert: @question.report_errors } && return
-    end
+    render :new, flash: { alert: @question.report_errors } && return unless @question.save
 
     result = @question.register_test(params[:tests], params[:labels], params['pirced-location-id'])
 

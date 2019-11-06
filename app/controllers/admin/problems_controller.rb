@@ -17,10 +17,7 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def create
     @problem = Problem.new(problem_params)
-    unless @problem.save
-      # flash[:alert] = @problem.report_errors
-      render :new, flash: { alert: @problem.report_errors } && return
-    end
+    render :new, flash: { alert: @problem.report_errors } && return unless @problem.save
 
     result = @problem.register_test(params[:tests], params[:labels], params['pirced-location-id'])
     # flash[:alert] = result[:error]
