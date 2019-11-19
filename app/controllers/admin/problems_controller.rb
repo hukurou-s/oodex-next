@@ -29,6 +29,9 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def show
     @test_list = PiercedLocation.of_problem_with_test_info(@problem.id)
+    questions = Question.of_problem(@problem.id).order(:name)
+    @q = questions.ransack(params[:q])
+    @questions = @q.result&.page(params[:page] || 1)&.per(10)
   end
 
   def update

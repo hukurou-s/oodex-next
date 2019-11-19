@@ -5,6 +5,8 @@ class Question < ApplicationRecord
   has_many :question_tests
   has_many :tests, through: :question_tests
 
+  scope :of_problem, ->(problem_id) { where(problem_id: problem_id) }
+
   def problem
     @problem = Problem.find_by(id: problem_id) if @problem.nil?
     @problem
