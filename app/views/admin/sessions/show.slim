@@ -51,7 +51,7 @@ section.hero.is-info style="margin-bottom: 30px;"
                       edit_admin_session_mission_path(@session.id, m.id),
                       class: 'button is-primary is-small')
               td.admin-missions__item--name
-                = link_to m.name, admin_session_mission_url(m.id)
+                = link_to m.name, admin_session_mission_url(@session.id, m.id)
               td.admin-missions__item--detail = m.detail
         tfoot
           tr

@@ -3,8 +3,8 @@ jobs:
   build:
     docker:
        - image: circleci/ruby:2.4.1-node-browsers
-       - image: library/mysql:latest
-         env:
+       - image: library/mysql:5.7
+         environment:
            - MYSQL_ALLOW_EMPTY_PASSWORD=true
            - REVIEWDOG_VERSION=0.9.8
 
@@ -61,16 +61,19 @@ jobs:
           name: run rubocop
           command: |
             bundle exec rubocop --parallel --require rubocop/formatter/checkstyle_formatter --format RuboCop::Formatter::CheckstyleFormatter | ~/bin/reviewdog -f=checkstyle -name="rubocop" -diff="git diff" -ci="circle-ci"
+          when: always
 
       - run:
           name: run slim-lint
           command: |
             bundle exec slim-lint app/views
+          when: always
 
       - run:
           name: run eslint
           command: |
             $(npm bin)/eslint -f checkstyle app/**/*.js | ~/bin/reviewdog -f checkstyle -name="eslint" -ci="circle-ci" -diff="git diff"
+          when: always
 
       - run:
           name: run breakman
@@ -80,7 +83,7 @@ jobs:
       - run:
           name: bundle-audit
           command: |
-            bundle exec bundle-audit check --update
+            bundle exec bundle-audit check --update || true
 
       - run: RAILS_ENV=test bundle exec rake assets:precompile
 

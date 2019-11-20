@@ -19,7 +19,9 @@ const Form = ({ piercedLocation }) => {
             key={Math.random()}
             name={`locations[${key}][${idx}][]`}
             defaultValue={lines}>
-            {_.map(lines, line => <option key={Math.random()} value={line} />)}
+            {_.map(lines, line => (
+              <option key={Math.random()} value={line} />
+            ))}
           </select>
         ))
       )}

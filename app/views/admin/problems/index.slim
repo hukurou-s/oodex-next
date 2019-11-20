@@ -1,0 +1,64 @@
+sass:
+  div.is-center
+    justify-content: center !important
+
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.title.is-s1
+        | 大問の管理
+      .columns
+        .column.is-10
+        .column.is-1
+          = link_to '大問を作成する',
+                    new_admin_session_mission_problem_url(@session, @mission),
+                    class: 'button is-link is-primary'
+.container
+  = paginate @problems
+  .columns
+    .column.is-12 style="min-height: 909px;"
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+        b 編集ボタン
+        | を押すと
+        b 大問
+        | の名前，詳細を変更できます
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+        b 大問名をクリック
+        | すると
+        b 大問の確認
+        | と
+        b 小問
+        | の追加ができます
+      table.table.is-striped.admin-problems__table
+        thead
+          tr
+            th.admin-problems__item--ui
+              b = '#'
+            th.admin-problems__item--name
+              b = sort_link(@q, :name, '名前')
+            th.admin-problems__item--detail
+              b = sort_link(@q, :name, '詳細')
+        tbody
+          - @problems.each do |p|
+            tr
+              td.admin-problems__item--ui
+                .field.has-addons.is-center
+                  .control
+                    = link_to('編集',
+                      edit_admin_session_mission_problem_url(@session, @mission, p),
+                      class: 'button is-primary is-small')
+              td.admin-problems__item--name
+                = link_to p.name, admin_session_mission_problem_url(@session, @mission, p)
+              td.admin-problems__item--detail = p.detail
+        tfoot
+          tr
+            th.admin-problems__item--ui
+              b = '#'
+            th.admin-problems__item--name
+              b = sort_link(@q, :name, '名前')
+            th.admin-problems__item--detail
+              b = sort_link(@q, :name, '詳細')
+.container
+  = paginate @problems

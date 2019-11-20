@@ -17,12 +17,25 @@
 class Mission < ApplicationRecord
   using JavaFileExtensions
   has_many :pierced_locations
+  has_many :problems
   belongs_to :session
 
   def java_files(absolute = false)
     java_files = files.grep(/\.java/)
     return java_files if absolute
     java_files.map { |f| f.gsub(Regexp.new(absolute_path), '') }
+  end
+
+  def test_names
+    json = File.read "#{local_repository}/tests.json"
+    JSON.parse(json).map { |i| i['name'] }
+  end
+
+  def test_commands
+    json = File.read "#{local_repository}/tests.json"
+    names = JSON.parse(json).map { |i| i['name'] }
+    commands = JSON.parse(json).map { |i| i['command'] }
+    Hash[names.zip(commands)]
   end
 
   def java_main_files

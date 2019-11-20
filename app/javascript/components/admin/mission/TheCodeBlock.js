@@ -163,7 +163,10 @@ class TheCodeBlock extends Component {
   }
 }
 
-export default connect(state => ({ piercedLocation: state.piercedLocation }), {
-  updatePiercedLocation,
-  removePiercedLocation
-})(TheCodeBlock)
+export default connect(
+  state => ({ piercedLocation: state.piercedLocation }),
+  {
+    updatePiercedLocation,
+    removePiercedLocation
+  }
+)(TheCodeBlock)

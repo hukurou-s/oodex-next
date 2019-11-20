@@ -20,15 +20,14 @@ class Admin::MissionsController < Admin::ApplicationController
 
   def update
     @mission.java_files.each do |file|
-      params[:locations].fetch(file, nil)&.permit!.to_h.map do |_key, value|
-        next unless value.respond_to?(:map)
-        PiercedLocation.create(
-          mission: @mission,
-          lines: value.map(&:to_i),
-          file_name: file
-        )
+      locations_params(file).map do |key, value|
+        PiercedLocation.create(mission: @mission,
+                               lines: value,
+                               file_name: file,
+                               location_id: key + 1)
       end
     end
+    redirect_to new_admin_session_mission_problem_path(params[:session_id], params[:id])
   end
 
   private
@@ -39,6 +38,16 @@ class Admin::MissionsController < Admin::ApplicationController
       :name,
       :detail
     )
+  end
+
+  def locations_params(file)
+    locations = params[:locations].fetch(file, nil)&.permit!.to_h
+    keys = locations.keys.map(&:to_i)
+    values = locations.values.map do |value|
+      next unless value.respond_to?(:map)
+      value.map(&:to_i)
+    end
+    Hash[keys.zip(values)]
   end
 
   def set_mission

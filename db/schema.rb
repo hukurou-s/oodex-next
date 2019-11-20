@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115095813) do
+ActiveRecord::Schema.define(version: 20191022052609) do
 
   create_table "missions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "session_id", null: false
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20180115095813) do
     t.integer "mission_id", null: false
     t.string "file_name", null: false
     t.text "lines", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "location_id", null: false
+  end
+
+  create_table "problem_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "problem_id", null: false
+    t.integer "test_id", null: false
+    t.integer "score", default: 50, null: false
+    t.integer "pierced_level", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -48,6 +58,23 @@ ActiveRecord::Schema.define(version: 20180115095813) do
     t.index ["session_id"], name: "index_projects_on_session_id"
   end
 
+  create_table "question_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "question_id", null: false
+    t.integer "test_id", null: false
+    t.integer "score", default: 50, null: false
+    t.integer "pierced_level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "problem_id", null: false
+    t.string "name", null: false
+    t.text "detail", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sessions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.text "detail", null: false
@@ -63,6 +90,15 @@ ActiveRecord::Schema.define(version: 20180115095813) do
     t.integer "user_id", null: false
     t.integer "team_id", null: false
     t.integer "session_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "mission_id", null: false
+    t.string "test_name", null: false
+    t.string "test_command", null: false
+    t.integer "pierced_location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

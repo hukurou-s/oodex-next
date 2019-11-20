@@ -1,0 +1,90 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | #{@problem.name}
+      .columns
+        .column.is-offset-10.is-1
+          = link_to '小問を登録する',
+          new_admin_session_mission_problem_question_url(@session, @mission, @problem),
+            class: 'button is-link'
+
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 大問の説明文
+      p = @problem.detail
+
+.container
+  .columns style="margin-bottom: 30px;"
+    .column.is-12
+      table.table.is-striped.admin-problem-test__table
+        thead
+          tr
+            th.admin-problem-test__item--name
+              b = 'テスト名'
+            th.admin-problem-test__item--command
+              b = 'テストコマンド'
+            th.admin-problem-test__item--score
+              b = 'スコア'
+            th.admin-problem-test__item--pierced_level
+              b = '穴抜き箇所のレベル'
+        tbody
+          - @test_list.each do |tl|
+            tr
+              td.admin-problem-test__item--name = tl[:test_name]
+              td.admin-problem-test__item--command = tl[:test_command]
+              td.admin-problem-test__item--score = tl[:score]
+              td.admin-problem-test__item--pierced_level
+                = ProblemTest.new(pierced_level: tl[:pierced_level]).pierced_level
+
+.container
+  h1.subtitle.is-s1
+    | 登録済みの小問
+  = paginate @questions
+  .columns
+    .column.is-12 style="min-height: 909px;"
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+        b 編集ボタン
+        | を押すと
+        b 小問
+        | の名前，詳細を変更できます
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+        b 小問名をクリック
+        | すると
+        b 小問の確認
+        | ができます
+      table.table.is-striped.admin-problems__table
+        thead
+          tr
+            th.admin-problems__item--ui
+              b = '#'
+            th.admin-problems__item--name
+              b = sort_link(@q, :name, '名前')
+            th.admin-problems__item--detail
+              b = sort_link(@q, :name, '詳細')
+        tbody
+          - @questions.each do |q|
+            tr
+              td.admin-problems__item--ui
+                .field.has-addons.is-center
+                  .control
+                    = link_to('編集',
+                      edit_admin_session_mission_problem_question_url(@session, @mission, @problem, q),
+                      class: 'button is-primary is-small')
+              td.admin-problems__item--name
+                = link_to q.name, admin_session_mission_problem_question_url(@session, @mission, @problem, q)
+              td.admin-problems__item--detail = q.detail
+        tfoot
+          tr
+            th.admin-problems__item--ui
+              b = '#'
+            th.admin-problems__item--name
+              b = sort_link(@q, :name, '名前')
+            th.admin-problems__item--detail
+              b = sort_link(@q, :name, '詳細')
+.container
+  = paginate @questions
