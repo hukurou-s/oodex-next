@@ -33,7 +33,7 @@ section.hero.is-info style="margin-bottom: 30px;"
           .article
             section
               h2.subtitle.is-s1
-                | #{link_to mission.name, session_exercises_url(@session.id, mission.id)}
+                | #{link_to mission.name, exercises_url(@session.id, mission.id)}
               p = mission.detail
             section
               table.table.is-striped.problem__table
