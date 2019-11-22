@@ -30,7 +30,8 @@ section.hero.is-dark
           tbody
             - @sessions.each do |s|
               tr
-                td.admin-sessions__item--name     = s.name
+                td.admin-sessions__item--name
+                  = link_to s.name, session_url(s.id)
                 td.admin-sessions__item--detail   = s.detail
                 td.admin-sessions__item--start_at = s.start_at
                 td.admin-sessions__item--end_at   = s.end_at
