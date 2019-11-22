@@ -1,0 +1,34 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.title.is-s1
+        | 演習用のページ
+
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 大問ごとに小問の穴抜き箇所を表示する
+
+.container
+  .columns
+    .column.is-12 style="min-height: 909px;"
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+          | ここからはReactで書いていくけど、一旦データの確認とページのサンプルとして一覧出力
+
+      - @problems_questions.each do |problem, questions|
+        section
+          .article
+            section
+              h2.subtitle.is-s1
+                | #{problem.name}
+              p = problem.detail
+            section
+              table.table.is-striped.question__table
+                - questions.each do |question|
+                  tr
+                    td.question__item--name
+                      = question.name
+                    td.question__item--detail
+                      = question.detail
