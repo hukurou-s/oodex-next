@@ -33,11 +33,11 @@ section.hero.is-info style="margin-bottom: 30px;"
           .article
             section
               h2.subtitle.is-s1
-                | #{mission.name}
+                | #{link_to mission.name, session_exercises_url(@session.id, mission.id)}
               p = mission.detail
             section
               table.table.is-striped.problem__table
                 - problems.each do |problem|
                   tr
-                    td.mission__item--name
-                      = link_to problem.name, session_exercises_url(session_id: @session.id, mission_id: mission.id)
+                    td.problem__item--name
+                      = problem.name
