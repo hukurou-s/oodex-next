@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq' if Rails.env == 'development'
   mount ActionCable.server => '/cable'
 
+  resources :sessions, only: [:show] do
+    get '/missions/:mission_id/exercises', to: 'exercises#show', as: :exercises
+  end
+
   namespace :admin do
     authenticate :user, lambda { |u| u.super? } do
       mount Sidekiq::Web => '/sidekiq'
