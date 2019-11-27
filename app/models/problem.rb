@@ -19,6 +19,22 @@ class Problem < ApplicationRecord
   has_many :tests, through: :problem_tests
 
   scope :of_mission, ->(mission_id) { where(mission_id: mission_id) }
+  scope :search_test_with_problem_id, ->(problem_id) {
+    with_tests
+      .problem_and_test_info
+      .where(problems: {id: problem_id})
+  }
+  scope :with_tests, -> { joins(problem_tests: :test) }
+  scope :problem_and_test_info, -> {
+    select(
+      'problems.*,
+      problem_tests.score,
+      problem_tests.pierced_level,
+      tests.test_name,
+      tests.test_command,
+      tests.pierced_location_id'
+    )
+  }
 
   def pierced_locations
     mission.pierced_locations
