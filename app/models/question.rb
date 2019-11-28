@@ -6,6 +6,23 @@ class Question < ApplicationRecord
   has_many :tests, through: :question_tests
 
   scope :of_problem, ->(problem_id) { where(problem_id: problem_id) }
+  scope :search_tests_with_problem_id, ->(problem_id) {
+    with_tests
+      .question_and_test_info
+      .where(questions: {problem_id: problem_id})
+  }
+
+  scope :with_tests, -> { left_joins(question_tests: :test) }
+  scope :question_and_test_info, -> {
+    select(
+      'questions.*,
+      question_tests.score,
+      question_tests.pierced_level,
+      tests.test_name,
+      tests.test_command,
+      tests.pierced_location_id'
+    )
+  }
 
   def problem
     @problem = Problem.find_by(id: problem_id) if @problem.nil?
