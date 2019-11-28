@@ -19,6 +19,7 @@ section.hero.is-info style="margin-bottom: 30px;"
 
       .wrapper
         = react_component('Exercise',
-        problems_and_questions: @problems_and_questions,
+        problems: @problems,
+        questions: @questions,
         problems_with_tests: @problems_with_tests,
         questions_with_tests: @questions_with_tests)

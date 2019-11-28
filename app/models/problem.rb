@@ -22,14 +22,8 @@ class Problem < ApplicationRecord
   scope :search_tests_with_problem_id, ->(problem_id) {
     with_tests
       .problem_and_test_info
-      .where(problems: {id: problem_id})
-  }
-  scope :search_questions_with_problem_id, ->(problem_id) {
-    with_questions
-      .problem_and_question_info
       .where(problems: { id: problem_id })
   }
-
   scope :with_tests, -> { left_joins(problem_tests: :test) }
   scope :problem_and_test_info, -> {
     select(
@@ -39,17 +33,6 @@ class Problem < ApplicationRecord
       tests.test_name,
       tests.test_command,
       tests.pierced_location_id'
-    )
-  }
-  scope :with_questions, -> { left_joins(:questions) }
-  scope :problem_and_question_info, -> {
-    select(
-      'problems.id AS problem_id,
-      problems.name AS problem_name,
-      problems.detail AS problem_detail,
-      questions.id AS question_id,
-      questions.name AS question_name,
-      questions.detail AS question_detail'
     )
   }
 

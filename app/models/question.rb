@@ -9,7 +9,7 @@ class Question < ApplicationRecord
   scope :search_tests_with_problem_id, ->(problem_id) {
     with_tests
       .question_and_test_info
-      .where(questions: {problem_id: problem_id})
+      .where(questions: { problem_id: problem_id })
   }
 
   scope :with_tests, -> { left_joins(question_tests: :test) }

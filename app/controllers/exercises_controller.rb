@@ -6,10 +6,10 @@ class ExercisesController < ApplicationController
   before_action :set_mission, only: :show
 
   def show
-    problems = @mission.problems
-    @problems_and_questions = Problem.search_questions_with_problem_id(problems)
-    @problems_with_tests = Problem.search_tests_with_problem_id(problems)
-    @questions_with_tests = Question.search_tests_with_problem_id(problems)
+    @problems = @mission.problems.order(:name)
+    @questions = Question.of_problem(@problems).order(:name)
+    @problems_with_tests = Problem.search_tests_with_problem_id(@problems)
+    @questions_with_tests = Question.search_tests_with_problem_id(@problems)
   end
 
   private
