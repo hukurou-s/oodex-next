@@ -8,10 +8,8 @@ class ExercisesController < ApplicationController
   def show
     @problems_questions = {}
     problems = @mission.problems
-    @problems_and_tests = Problem.search_test_with_problem_id(problems)
-    problems.each do |p|
-      @problems_questions[p] = p.questions
-    end
+    @problems_with_tests = Problem.search_tests_with_problem_id(problems)
+    @problems_and_questions = Problem.search_questions_with_problem_id(problems)
   end
 
   private

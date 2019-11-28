@@ -17,22 +17,7 @@ section.hero.is-info style="margin-bottom: 30px;"
         span.fa.fa-exclamation-circle aria-hidden="true"
           | ここからはReactで書いていくけど、一旦データの確認とページのサンプルとして一覧出力
 
-      - @problems_questions.each do |problem, questions|
-        section
-          .article
-            section
-              h2.subtitle.is-s1
-                | #{problem.name}
-              p = problem.detail
-            section
-              table.table.is-striped.question__table
-                - questions.each do |question|
-                  tr
-                    td.question__item--name
-                      = question.name
-                    td.question__item--detail
-                      = question.detail
-
       .wrapper
         = react_component('Exercise',
-        problems_with_tests: @problems_and_tests)
+        problems_with_tests: @problems_with_tests,
+        problems_questions: @problems_and_questions)
