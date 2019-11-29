@@ -1,31 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { initializeProblemAndQuestionData } from '../../actions/exercise'
+import TheProblems from './TheProblems'
 
 class TheExercise extends React.Component {
   componentDidMount() {
-    console.log(this.props)
-    const { problems, questions, problemsWithTests, questionsWithTests } = this.props
+    const { problemData, questionData, problemsWithTests, questionsWithTests } = this.props
     this.props.initializeProblemAndQuestionData({
-      problems,
-      questions,
+      problemData,
+      questionData,
       problemsWithTests,
       questionsWithTests
     })
   }
 
   render() {
-    console.log("store", this.props)
     return (
       <div>
         <h1>The Exersice</h1>
+        <TheProblems problemList={this.props.problems.problemList} />
       </div>
     )
   }
 }
 
 export default connect(
-  state => ({}),
+  state => ({
+    problems: state.problems
+  }),
   {
     initializeProblemAndQuestionData
   }
