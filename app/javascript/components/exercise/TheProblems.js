@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import ProblemContents from './ProblemContents'
 
 class TheProblems extends React.Component {
   constructor(props) {
@@ -9,15 +10,10 @@ class TheProblems extends React.Component {
     }
   }
   renderTabs = (visibleProblemIndex) => {
-    const problemList = this.props.problemList
-    console.log(problemList)
-    if ( !Array.isArray(problemList) ) {
-      return (<h1>問題が登録されていません</h1>)
-    }
     return (
       <div className='tabs'>
         {
-          problemList.map((p, i) => (
+          this.props.problemList.map((p, i) => (
             this.renderTab(i, visibleProblemIndex)
           ))
         }
@@ -31,7 +27,7 @@ class TheProblems extends React.Component {
         <li
           className={index === visibleProblemIndex && 'is-active'}
           key={index}
-          onClick={ () => { this.changeActiveTab(index) }}
+          onClick={() => {this.changeActiveTab(index)}}
         >
           <a>{`problem${index+1}`}</a>
         </li>
@@ -40,7 +36,7 @@ class TheProblems extends React.Component {
     return (
       <li
         key={index}
-        onClick={ () => { this.changeActiveTab(index) }}
+        onClick={() => {this.changeActiveTab(index)}}
       >
         <a>{`problem${index+1}`}</a>
       </li>
@@ -52,12 +48,31 @@ class TheProblems extends React.Component {
     this.setState({visibleProblemIndex: index})
   }
 
+  activeProblem = () => {
+    const problemList = this.props.problemList
+    if ( !Array.isArray(problemList) ) {
+      return {}
+    }
+    return this.props.problemList[this.state.visibleProblemIndex]
+  }
+
   render() {
+    const problemList = this.props.problemList
+    if ( !Array.isArray(problemList) ) {
+      return (
+        <div className='problems'>
+          <h1>問題が登録されていません</h1>
+        </div>
+      )
+    }
     return (
       <div className='problems'>
         <div className='problem-tabs'>
-          { this.renderTabs(this.state.visibleProblemIndex) }
+          {this.renderTabs(this.state.visibleProblemIndex)}
         </div>
+        <ProblemContents
+          contents={this.activeProblem()}
+        />
       </div>
     )
   }
