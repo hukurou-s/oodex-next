@@ -12,7 +12,9 @@ class TheProblems extends React.Component {
   renderTabs = visibleProblemIndex => {
     return (
       <div className="tabs">
-        {this.props.problemList.map((p, i) => this.renderTab(i, visibleProblemIndex))}
+        <ul>
+          {this.props.problemList.map((p, i) => this.renderTab(i, visibleProblemIndex))}
+        </ul>
       </div>
     )
   }
