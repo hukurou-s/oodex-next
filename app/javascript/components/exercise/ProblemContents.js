@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function ProblemContents({ contents }) {
-  console.log(contents)
   return (
     <div>
       <div>

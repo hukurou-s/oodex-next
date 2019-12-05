@@ -8,18 +8,19 @@ const createProblemList = (problemData, questionData) => {
     id: p.id,
     name: p.name,
     detail: p.detail,
-    questions: questionData.filter(q => q.problem_id === p.id).map(q => ({
-      id: q.id,
-      name: q.name,
-      detail: q.detail
-    }))
+    questions: questionData
+      .filter(q => q.problem_id === p.id)
+      .map(q => ({
+        id: q.id,
+        name: q.name,
+        detail: q.detail
+      }))
   }))
 }
 
 const problems = createReducer(
   {
     [actions.initializeProblemAndQuestionData]: (state, payload) => {
-      console.log(payload)
       const { problemData, questionData } = payload
       const problemList = createProblemList(problemData, questionData)
 
