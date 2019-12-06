@@ -10,6 +10,7 @@ class ExercisesController < ApplicationController
     @questions = Question.of_problem(@problems).order(:name)
     @problems_with_tests = Problem.search_tests_with_problem_id(@problems)
     @questions_with_tests = Question.search_tests_with_problem_id(@problems)
+    @java_pierced_contents = @mission.java_pierced_contents
   end
 
   private

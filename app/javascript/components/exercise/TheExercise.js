@@ -5,12 +5,13 @@ import TheProblems from './TheProblems'
 
 class TheExercise extends React.Component {
   componentDidMount() {
-    const { problemData, questionData, problemsWithTests, questionsWithTests } = this.props
+    const { problemData, questionData, problemsWithTests, questionsWithTests, javaPiercedContents } = this.props
     this.props.initializeProblemAndQuestionData({
       problemData,
       questionData,
       problemsWithTests,
-      questionsWithTests
+      questionsWithTests,
+      javaPiercedContents
     })
   }
 

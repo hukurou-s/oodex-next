@@ -1,7 +1,5 @@
 export const initialState = {
   problems: {
-    problemsWithTests: [],
-    questionsWithTests: [],
     problemList: [
       {
         id: 0,
@@ -15,6 +13,11 @@ export const initialState = {
           }
         ]
       }
-    ]
+    ],
+    meta: {
+      problemsWithTests: [],
+      questionsWithTests: [],
+      javaPiercedContents: []
+    }
   }
 }

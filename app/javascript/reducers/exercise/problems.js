@@ -25,9 +25,10 @@ const problems = createReducer(
       const problemList = createProblemList(problemData, questionData)
 
       const nextState = immer(state, draft => {
-        draft.problemsWithTests = payload.problemsWithTests
-        draft.questionsWithTests = payload.questionsWithTests
         draft.problemList = problemList
+        draft.meta.problemsWithTests = payload.problemsWithTests
+        draft.meta.questionsWithTests = payload.questionsWithTests
+        draft.meta.javaPiercedContents = payload.javaPiercedContents
       })
       return nextState
     }
