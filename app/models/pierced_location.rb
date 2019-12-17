@@ -15,7 +15,10 @@ class PiercedLocation < ApplicationRecord
   scope :problem_test_info, -> {
     select(
       'pierced_locations.lines,
-      tests.test_name, tests.test_command,
+      pierced_locations.file_name,
+      tests.test_name,
+      tests.test_command,
+      problem_tests.problem_id,
       problem_tests.score,
       problem_tests.pierced_level'
     )
@@ -31,7 +34,9 @@ class PiercedLocation < ApplicationRecord
   scope :question_test_info, -> {
     select(
       'pierced_locations.lines,
-      tests.test_name, tests.test_command,
+      pierced_locations.file_name,
+      tests.test_name,
+      tests.test_command,
       question_tests.score,
       question_tests.pierced_level'
     )

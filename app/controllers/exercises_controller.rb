@@ -8,7 +8,8 @@ class ExercisesController < ApplicationController
   def show
     @problems = @mission.problems.order(:name)
     @questions = Question.of_problem(@problems).order(:name)
-    @problems_with_tests = Problem.search_tests_with_problem_id(@problems)
+    @problems_with_tests = PiercedLocation.of_problem_with_test_info(@problems)
+    # Problem.search_tests_with_problem_id(@problems)
     @questions_with_tests = Question.search_tests_with_problem_id(@problems)
     @java_pierced_contents = @mission.java_pierced_contents
   end
