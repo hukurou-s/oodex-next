@@ -6,15 +6,15 @@ class ProblemCode extends React.Component {
     super(props)
   }
 
-  renderCode = (javaFiles) => {
+  renderCode = javaFiles => {
     const files = javaFiles.filter((f, i, arr) => arr.indexOf(f) === i)
     let code = []
     files.forEach((file, i) => {
       const content = this.props.javaPiercedContents.find(content => {
-        return (Object.keys(content)[0] === file)
+        return Object.keys(content)[0] === file
       })
       code.push(
-        <div key={i} style={{marginTop:30}}>
+        <div key={i} style={{ marginTop: 30 }}>
           <h2>ファイル名: {file}</h2>
           <pre>{content[file]}</pre>
         </div>
@@ -24,12 +24,10 @@ class ProblemCode extends React.Component {
   }
 
   render() {
-    const files = this.props.problemWithTests.filter(p => p.problem_id === this.props.problemID).map(p => p.file_name)
-    return (
-      <div>
-        {this.renderCode(files)}
-      </div>
-    )
+    const files = this.props.problemWithTests
+      .filter(p => p.problem_id === this.props.problemID)
+      .map(p => p.file_name)
+    return <div>{this.renderCode(files)}</div>
   }
 }
 
