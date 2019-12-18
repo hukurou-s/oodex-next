@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import QuestionCode from './QuestionCode'
 const Question = styled.div`
   margin-top: 30px;
 `
@@ -12,6 +13,7 @@ export default function QuestionContents({ contents }) {
       <div>
         <p>{contents.detail}</p>
       </div>
+      <QuestionCode questionID={contents.id} />
     </Question>
   )
 }

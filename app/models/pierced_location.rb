@@ -37,6 +37,7 @@ class PiercedLocation < ApplicationRecord
       pierced_locations.file_name,
       tests.test_name,
       tests.test_command,
+      question_tests.question_id,
       question_tests.score,
       question_tests.pierced_level'
     )
