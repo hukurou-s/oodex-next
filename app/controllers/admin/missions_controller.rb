@@ -47,7 +47,11 @@ class Admin::MissionsController < Admin::ApplicationController
       next unless value.respond_to?(:map)
       value.map(&:to_i)
     end
-    Hash[keys.zip(values)]
+    Hash[keys.zip(sort_serialized_arrays(values))]
+  end
+
+  def sort_serialized_arrays(arrays)
+    arrays.sort_by { |a| a[0] }
   end
 
   def set_mission
