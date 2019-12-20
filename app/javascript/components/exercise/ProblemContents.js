@@ -6,6 +6,7 @@ import QuestionContents from './QuestionContents'
 
 const Problem = styled.div`
   margin-top: 30px;
+  margin-bottom: 30px;
 `
 
 export default function ProblemContents({ contents }) {

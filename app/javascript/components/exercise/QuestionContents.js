@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import QuestionCode from './QuestionCode'
 const Question = styled.div`
   margin-top: 30px;
+  margin-bottom: 30px;
 `
 
 export default function QuestionContents({ contents }) {

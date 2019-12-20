@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import CodeBlock from './CodeBlock'
+
 class QuestionCode extends React.Component {
   constructor(props) {
     super(props)
@@ -15,8 +17,7 @@ class QuestionCode extends React.Component {
       })
       code.push(
         <div key={i} style={{ marginTop: 30 }}>
-          <h2>ファイル名: {file}</h2>
-          <pre>{content[file]}</pre>
+          <CodeBlock file={file} code={content[file]} />
         </div>
       )
     })
