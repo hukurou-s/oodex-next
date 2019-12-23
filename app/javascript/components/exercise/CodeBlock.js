@@ -18,10 +18,24 @@ class CodeBlock extends React.Component {
     this.setState({ code: newValue })
   }
 
+  handleSubmit = () => {
+    //console.log('code', this.state.code)
+    // request to backend for testing
+  }
+
   render() {
     return (
       <div>
-        <h2>ファイル名: {this.props.file}</h2>
+        <div className='columns'>
+          <div className='column is-11'>
+            <h2>ファイル名: {this.props.file}</h2>
+          </div>
+          <div className='column is-11'>
+            <button type="button" className="button is-primary" onClick={this.handleSubmit} >
+              テスト
+            </button>
+          </div>
+        </div>
         <AceEditor
           mode="java"
           theme="solarized_light"
