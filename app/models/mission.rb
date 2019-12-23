@@ -55,7 +55,7 @@ class Mission < ApplicationRecord
 
   def java_pierced_contents
     java_contents = java_contents_per_lines
-    pierced_locations.each do |p|
+    pierced_locations.order('file_name DESC').order('location_id DESC').each do |p|
       java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
     end
     java_contents.map { |file, content| { file => content.join("\n") } }
