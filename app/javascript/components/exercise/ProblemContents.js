@@ -12,8 +12,8 @@ const Problem = styled.div`
 export default function ProblemContents({ contents }) {
   return (
     <Problem>
-      <h1>{contents.name}</h1>
-      <div>
+      <h1>大問 {contents.name}</h1>
+      <div style={{margin:'20px', whiteSpace: 'pre-line'}}>
         <p>{contents.detail}</p>
       </div>
       <ProblemCode problemID={contents.id} />
