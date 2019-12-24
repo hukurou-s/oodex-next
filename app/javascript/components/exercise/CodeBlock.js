@@ -26,12 +26,12 @@ class CodeBlock extends React.Component {
   render() {
     return (
       <div>
-        <div className='columns'>
-          <div className='column is-11'>
+        <div className="columns">
+          <div className="column is-11">
             <h2>ファイル名: {this.props.file}</h2>
           </div>
-          <div className='column is-11'>
-            <button type="button" className="button is-primary" onClick={this.handleSubmit} >
+          <div className="column is-11">
+            <button type="button" className="button is-primary" onClick={this.handleSubmit}>
               テスト
             </button>
           </div>
