@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import AceEditor from 'react-ace'
+import axios from 'axios'
 
 import 'ace-builds/src-noconflict/mode-java'
 import 'ace-builds/src-noconflict/theme-solarized_light'
@@ -12,15 +13,24 @@ class CodeBlock extends React.Component {
     this.state = {
       code: this.props.code
     }
+    //axios.defaults.headers['x-xsrf-token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
   }
 
   onChange = newValue => {
     this.setState({ code: newValue })
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     //console.log('code', this.state.code)
     // request to backend for testing
+    const result = await axios
+      .post('/api/submissions/question', {
+        file_name: this.props.file,
+        code: this.state.code
+      })
+      .then(res => res.data)
+      .catch(/*e => console.log(e)*/)
+    //console.log(result)
   }
 
   render() {
