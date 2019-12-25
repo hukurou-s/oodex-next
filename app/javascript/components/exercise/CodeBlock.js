@@ -13,7 +13,9 @@ class CodeBlock extends React.Component {
     this.state = {
       code: this.props.code
     }
-    //axios.defaults.headers['x-xsrf-token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    axios.defaults.headers['x-csrf-token'] = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute('content')
   }
 
   onChange = newValue => {
@@ -24,10 +26,16 @@ class CodeBlock extends React.Component {
     //console.log('code', this.state.code)
     // request to backend for testing
     const result = await axios
-      .post('/api/submissions/question', {
-        file_name: this.props.file,
-        code: this.state.code
-      })
+      .post(
+        '/api/submissions/question',
+        {
+          file_name: this.props.file,
+          code: this.state.code
+        },
+        {
+          withCredentials: true
+        }
+      )
       .then(res => res.data)
       .catch(/*e => console.log(e)*/)
     //console.log(result)

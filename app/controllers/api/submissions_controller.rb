@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-class Api::SubmissionsController < Api::ApplicationController
+class Api::SubmissionsController < ApplicationController
   def question
-    print params
-
-    render json: params
+    logger.debug(current_user.id)
+    render json: {}
   end
 end
