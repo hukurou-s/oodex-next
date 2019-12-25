@@ -4,6 +4,8 @@ class Question < ApplicationRecord
   belongs_to :problem
   has_many :question_tests
   has_many :tests, through: :question_tests
+  has_one :submit_question
+  has_one :submit, through: :submit_question
 
   scope :of_problem, ->(problem_id) { where(problem_id: problem_id) }
   scope :search_tests_with_problem_id, ->(problem_id) {

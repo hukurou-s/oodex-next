@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     post '/users/sign_in', to: 'users#sign_in'
     delete '/users/sign_out', to: 'users#sign_out'
+
+    post '/submissions/question', to: 'submissions#question'
   end
 
   mount Sidekiq::Web => '/sidekiq' if Rails.env == 'development'
