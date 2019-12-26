@@ -29,8 +29,19 @@ class CodeBlock extends React.Component {
       .post(
         '/api/submissions/question',
         {
+          /*
           file_name: this.props.file,
           code: this.state.code
+          */
+          "id": 6,
+	        "file_name": "/src/main/java/sequence/NumSequenceGenerator.java",
+	        "code":
+	        {
+		        1: "NumData[] seq = new NumData[size];\n        for (int i = 0; i < size; i++) {\n            seq[i] = new NumData(i);\n        }\n        return new NumDataSequence(seq);",
+		        2: "",
+		        3: "",
+		        4: "",
+	        }
         },
         {
           withCredentials: true
