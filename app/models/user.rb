@@ -30,6 +30,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :students
+  has_many :submits
 
   def over_ta?
     %w[ta admin super].include? role

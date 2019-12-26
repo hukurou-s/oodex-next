@@ -4,6 +4,7 @@ class PiercedLocation < ApplicationRecord
   serialize :lines
   belongs_to :mission
   has_many :tests
+  has_many :submit_codes
 
   scope :of_problem_with_test_info, ->(problem_id) {
     with_test_and_problem
