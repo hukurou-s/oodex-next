@@ -61,7 +61,7 @@ class Mission < ApplicationRecord
     java_contents.map { |file, content| { file => content.join("\n") } }
   end
 
-  def java_submited_contents(submit_id)
+  def java_submitted_contents(submit_id)
     java_contents = java_contents_per_lines
     pierced_locations.with_submit_codes(submit_id).order('file_name DESC').order('location_id DESC').each do |p|
       java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
@@ -72,6 +72,26 @@ class Mission < ApplicationRecord
 
   def java_contents_per_lines
     java_main_contents.map { |content| [content.keys[0], content.values[0].split(/\n/)] }.to_h
+  end
+
+  def create_submitted_project(submit_id, root_path)
+    copy_repo(root_path)
+    project_root = root_path + '/' + File.basename(local_repository)
+    java_submitted_contents(submit_id).each do |contents|
+      contents.each do |key, value|
+        File.write(project_root + key, value)
+      end
+    end
+  end
+
+  def create_pierced_project(root_path)
+    copy_repo(root_path)
+    project_root = root_path + '/' + File.basename(local_repository)
+    java_pierced_contents.each do |contents|
+      contents.each do |key, value|
+        File.write(project_root + key, value)
+      end
+    end
   end
 
   def copy_repo(root_path)
