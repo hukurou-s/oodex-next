@@ -61,8 +61,21 @@ class Mission < ApplicationRecord
     java_contents.map { |file, content| { file => content.join("\n") } }
   end
 
+  def java_submited_contents(submit_id)
+    java_contents = java_contents_per_lines
+    pierced_locations.with_submit_codes(submit_id).order('file_name DESC').order('location_id DESC').each do |p|
+      java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
+      java_contents[p.file_name].insert(p.lines[0], p.code)
+    end
+    java_contents.map { |file, content| { file => content.join("\n") } }
+  end
+
   def java_contents_per_lines
     java_main_contents.map { |content| [content.keys[0], content.values[0].split(/\n/)] }.to_h
+  end
+
+  def copy_repo(root_path)
+    FileUtils.cp_r(absolute_path, root_path)
   end
 
   private

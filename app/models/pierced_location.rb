@@ -43,4 +43,16 @@ class PiercedLocation < ApplicationRecord
       question_tests.pierced_level'
     )
   }
+
+  scope :with_submit_codes, ->(submit_id) {
+    joins(:submit_codes)
+      .select(
+        'submit_codes.submit_id,
+        submit_codes.file_name,
+        submit_codes.code,
+        pierced_locations.lines,
+        pierced_locations.location_id'
+      )
+      .where(submit_codes: { submit_id: submit_id })
+  }
 end
