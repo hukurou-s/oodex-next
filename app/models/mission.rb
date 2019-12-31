@@ -82,6 +82,7 @@ class Mission < ApplicationRecord
         File.write(project_root + key, value)
       end
     end
+    project_root
   end
 
   def create_pierced_project(root_path)
@@ -92,6 +93,7 @@ class Mission < ApplicationRecord
         File.write(project_root + key, value)
       end
     end
+    project_root
   end
 
   def copy_repo(root_path)

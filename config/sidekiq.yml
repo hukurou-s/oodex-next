@@ -6,5 +6,6 @@
 :queues:
   - default
   - event
+  - test
 production:
   :concurrency: 30
