@@ -24,10 +24,9 @@ class Api::SubmissionsController < ApplicationController
     end
 
     @submit.save
-    logger.debug @submit.inspect
-    logger.debug @s_q.inspect
-    logger.debug @code.inspect
 
+    QuestionTestWorker.perform_async(@submit.id, @submit.mission_id, @question.id)
+    ExerciseActivityChannel.broadcast_to current_user, status: 'testing'
     # create testing job
     render json: {}
   end
