@@ -9,9 +9,10 @@ module ApplicationCable
     end
 
     protected
+
     def find_verified_user
       User.find(session['warden.user.user.key'][0][0])
-    rescue
+    rescue ActiveRecord::RecordNotFound
       reject_unauthorized_connection
     end
 

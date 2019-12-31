@@ -12,7 +12,7 @@ class QuestionTestWorker
     tmpdir = Dir.mktmpdir
     project_root = @mission.create_submitted_project(submit_id, tmpdir)
     Dir.chdir(project_root) do
-      err, status = build('.')
+      status = build('.')
       ExerciseActivityChannel.broadcast_to current_user(submit_id), status: 'fail' if status != 0
       result = Question.find(question_id).tests.map do |test|
         Open3.capture3(test.test_command)
@@ -23,8 +23,8 @@ class QuestionTestWorker
   end
 
   def build(project_root)
-    _, err, status = Open3.capture3("#{project_root}/gradlew clean build")
-    return err, status
+    _, _, status = Open3.capture3("#{project_root}/gradlew clean build")
+    status
   end
 
   def current_user(submit_id)
