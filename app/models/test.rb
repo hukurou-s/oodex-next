@@ -7,6 +7,7 @@ class Test < ApplicationRecord
   has_many :question_tests
   has_many :problems, through: :problem_tests
   has_many :questions, through: :question_tests
+  has_many :test_results
 
   scope :of_mission, ->(mission_id) { where(mission_id: mission_id) }
 
