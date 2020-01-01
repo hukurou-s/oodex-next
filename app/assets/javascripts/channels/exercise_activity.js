@@ -1,22 +1,22 @@
 const testingCallback = data => {
   switch (data.status) {
-  case 'testing':
-    window.loader.show('解答をテストしています... 🤔')
-    break
-  case 'fail':
-    window.loader.fail('テストを実行できませんでした 😱')
-    break
-  case 'done':
-    window.loader.done('テストが完了しました 😆')
-    setTimeout(() => {
-      window.loader.hide()
-    }, 1000)
-    break
+    case 'testing':
+      window.loader.show('解答をテストしています... 🤔')
+      break
+    case 'fail':
+      window.loader.fail('テストを実行できませんでした 😱')
+      break
+    case 'done':
+      window.loader.done('テストが完了しました 😆')
+      setTimeout(() => {
+        window.loader.hide()
+      }, 1000)
+      break
   }
 }
 
 const exerciseOptions = {
-  channel: 'ExerciseActivityChannel',
+  channel: 'ExerciseActivityChannel'
   //room: 'repo'
 }
 
