@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'open3'
+require 'json'
 
 class QuestionTestWorker
   include Sidekiq::Worker
@@ -8,18 +9,44 @@ class QuestionTestWorker
   sidekiq_options queue: :test, retry: 1
 
   def perform(submit_id, mission_id, question_id)
-    @mission = Mission.find(mission_id)
-    tmpdir = Dir.mktmpdir
-    project_root = @mission.create_submitted_project(submit_id, tmpdir)
-    Dir.chdir(project_root) do
-      status = build('.')
-      ExerciseActivityChannel.broadcast_to current_user(submit_id), status: 'fail' if status != 0
-      result = Question.find(question_id).tests.map do |test|
-        Open3.capture3(test.test_command)
-      end
-      puts result
+    set_before(submit_id, mission_id, question_id)
+
+    exec_tests
+
+    if @submit.save
+      ExerciseActivityChannel.broadcast_to @current_user, status: 'done'
+    else
+      ExerciseActivityChannel.broadcast_to @current_user, status: 'fail'
     end
-    ExerciseActivityChannel.broadcast_to current_user(submit_id), status: 'done'
+  end
+
+  def exec_tests
+    project_root = create_tmp_project
+
+    Dir.chdir(project_root) do
+      return unless can_compile?('.')
+
+      @test_result = @question.tests.map do |test|
+        results, = Open3.capture3(test.test_command)
+        JSON.parse(results).map do |result|
+          @submit.test_results.build(test_result_params(test, result))
+        end
+      end
+    end
+  end
+
+  def create_tmp_project
+    tmpdir = Dir.mktmpdir
+    project_root = @mission.create_submitted_project(@submit.id, tmpdir)
+    project_root
+  end
+
+  def can_compile?(project_root)
+    status = build(project_root)
+    return true if status.success?
+
+    ExerciseActivityChannel.broadcast_to @current_user, status: 'fail'
+    false
   end
 
   def build(project_root)
@@ -27,7 +54,20 @@ class QuestionTestWorker
     status
   end
 
-  def current_user(submit_id)
-    User.find(Submit.find(submit_id).user_id)
+  def test_result_params(test, result)
+    {
+      submit_id: @submit.id,
+      test_id: test.id,
+      status: result['status'],
+      target: result['target'],
+      message: result['message']
+    }
+  end
+
+  def set_before(submit_id, mission_id, question_id)
+    @submit = Submit.find(submit_id)
+    @mission = Mission.find(mission_id)
+    @question = Question.find(question_id)
+    @current_user = User.find(Submit.find(submit_id).user_id)
   end
 end
