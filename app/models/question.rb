@@ -26,6 +26,24 @@ class Question < ApplicationRecord
     )
   }
 
+  scope :with_test_and_submit, -> {
+    joins(
+      question_tests: [test: :test_results]
+    )
+  }
+  scope :question_score_info, -> {
+    select(
+      'questions.id,
+      question_tests.score,
+      question_tests.pierced_level,
+      test_results.submit_id,
+      test_results.status'
+    )
+  }
+  scope :search_with_submit_id, ->(submit_id) {
+    where(test_results: { submit_id: submit_id })
+  }
+
   def problem
     @problem = Problem.find_by(id: problem_id) if @problem.nil?
     @problem
@@ -70,6 +88,33 @@ class Question < ApplicationRecord
 
     @question_test = test.question_tests.build(question_test_params(label))
     test
+  end
+
+  def self.calc_score(user_id, question_id)
+    perfect_score = calc_perfect_score(question_id)
+    current_score = calc_user_score(user_id, question_id)
+    { question_id => { perfect: perfect_score, current: current_score } }
+  end
+
+  def self.calc_perfect_score(question_id)
+    score = 0
+    score_info = QuestionTest.where(question_id: question_id)
+    score_info.each do |info|
+      score += info.score
+    end
+    score
+  end
+
+  def self.calc_user_score(user_id, question_id)
+    score = 0
+    last_submits = Submit.last_question_submit_ids(user_id, question_id)
+    score_info = with_test_and_submit
+                 .search_with_submit_id(last_submits.values)
+                 .question_score_info
+    score_info.each do |info|
+      score += info.score if info.status == 'SUCCESS'
+    end
+    score
   end
 
   def report_errors
