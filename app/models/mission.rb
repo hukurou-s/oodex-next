@@ -53,6 +53,15 @@ class Mission < ApplicationRecord
     end
   end
 
+  def java_problem_contents(user_id)
+    submit = Submit.where(user_id: user_id, mission_id: self).last
+    if submit
+      @java_problem_contents = java_submitted_contents(submit.id)
+    else
+      @java_problem_contents = java_pierced_contents
+    end
+  end
+
   def java_pierced_contents
     java_contents = java_contents_per_lines
     pierced_locations.order('file_name DESC').order('location_id DESC').each do |p|

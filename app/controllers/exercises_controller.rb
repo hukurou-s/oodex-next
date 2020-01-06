@@ -13,7 +13,7 @@ class ExercisesController < ApplicationController
     @questions_with_tests = PiercedLocation.of_question_with_test_info(@questions)
     # Question.search_tests_with_problem_id(@problems)
     @score = { question: Question.calc_score(current_user.id, @questions) }
-    @java_pierced_contents = @mission.java_pierced_contents
+    @java_pierced_contents = @mission.java_problem_contents(current_user.id)
   end
 
   private
