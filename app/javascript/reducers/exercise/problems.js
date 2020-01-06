@@ -15,7 +15,7 @@ const createProblemList = (problemData, questionData, score) => {
         name: q.name,
         detail: q.detail,
         perfectScore: score['question'][q.id].perfect,
-        currentScore: score['question'][q.id].current,
+        currentScore: score['question'][q.id].current
       }))
   }))
 }

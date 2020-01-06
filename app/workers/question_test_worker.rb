@@ -10,8 +10,9 @@ class QuestionTestWorker
 
   def perform(submit_id, mission_id, question_id)
     set_before(submit_id, mission_id, question_id)
+    project_root = create_tmp_project
 
-    exec_tests
+    return unless exec_tests(project_root)
 
     if @submit.save
       ExerciseActivityChannel.broadcast_to @current_user, status: 'done'
@@ -20,11 +21,9 @@ class QuestionTestWorker
     end
   end
 
-  def exec_tests
-    project_root = create_tmp_project
-
+  def exec_tests(project_root)
     Dir.chdir(project_root) do
-      return unless can_compile?('.')
+      return false unless can_compile?('.')
 
       @test_result = @question.tests.map do |test|
         results, = Open3.capture3(test.test_command)
@@ -33,6 +32,7 @@ class QuestionTestWorker
         end
       end
     end
+    true
   end
 
   def create_tmp_project
@@ -45,7 +45,7 @@ class QuestionTestWorker
     status = build(project_root)
     return true if status.success?
 
-    ExerciseActivityChannel.broadcast_to @current_user, status: 'fail'
+    ExerciseActivityChannel.broadcast_to @current_user, status: 'compile error'
     false
   end
 

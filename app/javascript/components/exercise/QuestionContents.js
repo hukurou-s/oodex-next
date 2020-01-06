@@ -15,7 +15,9 @@ export default function QuestionContents({ contents }) {
           <h2>小問 {contents.name}</h2>
         </div>
         <div className="column is-2">
-          <p>{contents.currentScore} 点(現在) / {contents.perfectScore} 点(満点)</p>
+          <p>
+            {contents.currentScore} 点(現在) / {contents.perfectScore} 点(満点)
+          </p>
         </div>
       </div>
       <div style={{ margin: '20px', whiteSpace: 'pre-line' }}>

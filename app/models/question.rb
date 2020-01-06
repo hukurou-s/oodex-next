@@ -108,7 +108,6 @@ class Question < ApplicationRecord
     score_info = QuestionTest.where(question_id: question_id)
     score_info.each do |info|
       score[info.question_id] = score[info.question_id].to_i + info.score
-      #score += info.score
     end
     score
   end
