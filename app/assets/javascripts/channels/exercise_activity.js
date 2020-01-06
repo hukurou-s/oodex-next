@@ -10,6 +10,7 @@ const testingCallback = data => {
       window.loader.done('テストが完了しました 😆')
       setTimeout(() => {
         window.loader.hide()
+        window.location.reload()
       }, 1000)
       break
   }

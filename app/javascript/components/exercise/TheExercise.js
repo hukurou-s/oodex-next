@@ -8,13 +8,16 @@ class TheExercise extends React.Component {
     const {
       problemData,
       questionData,
+      score,
       problemsWithTests,
       questionsWithTests,
       javaPiercedContents
     } = this.props
+    console.log(score)
     this.props.initializeProblemAndQuestionData({
       problemData,
       questionData,
+      score,
       problemsWithTests,
       questionsWithTests,
       javaPiercedContents

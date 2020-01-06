@@ -10,7 +10,14 @@ const Question = styled.div`
 export default function QuestionContents({ contents }) {
   return (
     <Question>
-      <h2>小問 {contents.name}</h2>
+      <div className="columns">
+        <div className="column is-10">
+          <h2>小問 {contents.name}</h2>
+        </div>
+        <div className="column is-2">
+          <p>{contents.currentScore} 点(現在) / {contents.perfectScore} 点(満点)</p>
+        </div>
+      </div>
       <div style={{ margin: '20px', whiteSpace: 'pre-line' }}>
         <p>{contents.detail}</p>
       </div>

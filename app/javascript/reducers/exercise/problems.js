@@ -3,7 +3,7 @@ import { createReducer } from 'redux-act'
 import { initialState } from './initialState'
 import * as actions from '../../actions/exercise'
 
-const createProblemList = (problemData, questionData) => {
+const createProblemList = (problemData, questionData, score) => {
   return problemData.map(p => ({
     id: p.id,
     name: p.name,
@@ -13,7 +13,9 @@ const createProblemList = (problemData, questionData) => {
       .map(q => ({
         id: q.id,
         name: q.name,
-        detail: q.detail
+        detail: q.detail,
+        perfectScore: score['question'][q.id].perfect,
+        currentScore: score['question'][q.id].current,
       }))
   }))
 }
@@ -21,8 +23,8 @@ const createProblemList = (problemData, questionData) => {
 const problems = createReducer(
   {
     [actions.initializeProblemAndQuestionData]: (state, payload) => {
-      const { problemData, questionData } = payload
-      const problemList = createProblemList(problemData, questionData)
+      const { problemData, questionData, score } = payload
+      const problemList = createProblemList(problemData, questionData, score)
 
       const nextState = immer(state, draft => {
         draft.problemList = problemList

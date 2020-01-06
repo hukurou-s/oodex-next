@@ -9,7 +9,9 @@ export const initialState = {
           {
             id: 0,
             name: '',
-            detail: ''
+            detail: '',
+            perfectScore: 0,
+            currentScore: 0
           }
         ]
       }

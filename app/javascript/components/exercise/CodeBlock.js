@@ -58,7 +58,7 @@ class CodeBlock extends React.Component {
           <div className="column is-11">
             <h2>ファイル名: {this.props.file}</h2>
           </div>
-          <div className="column is-11">
+          <div className="column is-1">
             <button type="button" className="button is-primary" onClick={this.handleSubmit}>
               テスト
             </button>
