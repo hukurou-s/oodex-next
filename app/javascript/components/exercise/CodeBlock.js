@@ -22,25 +22,42 @@ class CodeBlock extends React.Component {
     this.setState({ code: newValue })
   }
 
+  createRequestCode = code => {
+    let data = {}
+    let flag = false
+    let location = -1
+
+    code.split('\n').forEach((line, index) => {
+      const end = line.match(/\s*(\/\/ !\])/)
+      if (end) {
+        flag = false
+        location = -1
+        return
+      }
+
+      const start = line.match(/\s*(\/\/ !\[)(\d+)/)
+      if (start) {
+        flag = true
+        location = start[2]
+        data[location] = ''
+        return
+      }
+
+      if (flag) {
+        data[location] += '\n' + line
+      }
+    })
+    return data
+  }
+
   handleSubmit = async () => {
-    //console.log('code', this.state.code)
-    // request to backend for testing
     const result = await axios
       .post(
         '/api/submissions/question',
         {
-          /*
+          id: this.props.id,
           file_name: this.props.file,
-          code: this.state.code
-          */
-          id: 6,
-          file_name: '/src/main/java/sequence/NumSequenceGenerator.java',
-          code: {
-            1: '        NumData[] seq = new NumData[size];\n        for (int i = 0; i < size; i++) {\n            seq[i] = new NumData(i);\n        }\n        return new NumDataSequence(seq);',
-            2: '        NumData[] seq = new NumData[size];\n        for (int i = 0; i < size; i++) {\n            seq[i] = new NumData(i);\n        }\n        return new NumDataSequence(seq);',
-            3: '        NumData[] seq = new NumData[size];\n        for (int i = 0; i < size; i++) {\n            seq[i] = new NumData(i);\n        }\n        return new NumDataSequence(seq);',
-            4: '        NumData[] seq = new NumData[size];\n        for (int i = 0; i < size; i++) {\n            seq[i] = new NumData(i);\n        }\n        return new NumDataSequence(seq);'
-          }
+          code: this.createRequestCode(this.state.code)
         },
         {
           withCredentials: true

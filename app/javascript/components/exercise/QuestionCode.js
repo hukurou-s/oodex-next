@@ -17,7 +17,7 @@ class QuestionCode extends React.Component {
       })
       code.push(
         <div key={i} style={{ marginTop: 30 }}>
-          <CodeBlock file={file} code={content[file]} />
+          <CodeBlock id={this.props.questionID} file={file} code={content[file]} />
         </div>
       )
     })
