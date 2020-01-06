@@ -55,10 +55,10 @@ class Mission < ApplicationRecord
 
   def java_problem_contents(user_id)
     submit = Submit.where(user_id: user_id, mission_id: self).last
-    if submit
-      @java_problem_contents = java_submitted_contents(submit.id)
-    else
+    if submit.nil?
       @java_problem_contents = java_pierced_contents
+    else
+      @java_problem_contents = java_submitted_contents(submit.id)
     end
   end
 
