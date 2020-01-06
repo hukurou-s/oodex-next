@@ -91,28 +91,37 @@ class Question < ApplicationRecord
   end
 
   def self.calc_score(user_id, question_id)
+    scores = {}
     perfect_score = calc_perfect_score(question_id)
     current_score = calc_user_score(user_id, question_id)
-    { question_id => { perfect: perfect_score, current: current_score } }
+    perfect_score.each do |id, p|
+      scores[id] = {
+        perfect: p,
+        current: current_score[id].to_i
+      }
+    end
+    scores
   end
 
   def self.calc_perfect_score(question_id)
-    score = 0
+    score = {}
     score_info = QuestionTest.where(question_id: question_id)
     score_info.each do |info|
-      score += info.score
+      score[info.question_id] = score[info.question_id].to_i + info.score
+      #score += info.score
     end
     score
   end
 
   def self.calc_user_score(user_id, question_id)
-    score = 0
+    score = {}
     last_submits = Submit.last_question_submit_ids(user_id, question_id)
     score_info = with_test_and_submit
                  .search_with_submit_id(last_submits.values)
                  .question_score_info
     score_info.each do |info|
-      score += info.score if info.status == 'SUCCESS'
+      question_id = info.id
+      score[question_id] = score[question_id].to_i + info.score if info.status == 'SUCCESS'
     end
     score
   end
