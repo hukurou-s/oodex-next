@@ -55,11 +55,12 @@ class Mission < ApplicationRecord
 
   def java_problem_contents(user_id)
     submit = Submit.where(user_id: user_id, mission_id: self).last
-    if submit.nil?
-      @java_problem_contents = java_pierced_contents
-    else
-      @java_problem_contents = java_submitted_contents(submit.id)
-    end
+    java_contents = if submit
+                      java_submitted_contents(submit.id)
+                    else
+                      java_pierced_contents
+                    end
+    java_contents
   end
 
   def java_pierced_contents
@@ -72,7 +73,7 @@ class Mission < ApplicationRecord
 
   def java_submitted_contents(submit_id)
     java_contents = java_contents_per_lines
-    pierced_locations.with_submit_codes(submit_id).order('file_name DESC').order('location_id DESC').each do |p|
+    pierced_locations.with_submit_codes(submit_id).each do |p|
       java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
       java_contents[p.file_name].insert(p.lines[0], p.code)
     end

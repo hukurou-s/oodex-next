@@ -54,5 +54,7 @@ class PiercedLocation < ApplicationRecord
         pierced_locations.location_id'
       )
       .where(submit_codes: { submit_id: submit_id })
+      .order('file_name DESC')
+      .order('location_id DESC')
   }
 end
