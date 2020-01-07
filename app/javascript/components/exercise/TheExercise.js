@@ -26,7 +26,6 @@ class TheExercise extends React.Component {
   render() {
     return (
       <div>
-        <h1>The Exersice</h1>
         <TheProblems problemList={this.props.problems.problemList} />
       </div>
     )
