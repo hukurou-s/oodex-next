@@ -17,6 +17,7 @@ class Problem < ApplicationRecord
   has_many :questions
   has_many :problem_tests
   has_many :tests, through: :problem_tests
+  has_many :submit_problems
 
   scope :of_mission, ->(mission_id) { where(mission_id: mission_id) }
   scope :search_tests_with_problem_id, ->(problem_id) {
