@@ -50,7 +50,7 @@ export default function ThePircedLocationStateEditor({ problem, testList }) {
               <label className="label is-small">対応テスト</label>
               <div className="select">
                 <select name="tests[]">
-                  {testList.map(key => (
+                  {['この問題では使用しない'].concat(testList).map(key => (
                     <option key={key}>{key}</option>
                   ))}
                 </select>
