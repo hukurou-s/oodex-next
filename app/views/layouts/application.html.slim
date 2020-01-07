@@ -15,8 +15,10 @@ html lang="ja"
       media: 'all', \
       'data-turbolinks-track': 'reload')
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'exercise'
 
   body
+    = render 'layouts/preloader'
     header
       = render 'layouts/navbar'
     main.oodex-main__container

@@ -53,6 +53,70 @@ class Mission < ApplicationRecord
     end
   end
 
+  def java_problem_contents(user_id)
+    submit = Submit.where(user_id: user_id, mission_id: self).last
+    java_contents = if submit
+                      java_submitted_contents(submit.id)
+                    else
+                      java_pierced_contents
+                    end
+    java_contents
+  end
+
+  def java_pierced_contents
+    java_contents = java_contents_per_lines
+    pierced_locations.order('file_name DESC').order('location_id DESC').each do |p|
+      java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
+    end
+    java_contents_join_lines(java_contents)
+  end
+
+  def java_submitted_contents(submit_id)
+    java_contents = java_contents_per_lines
+    pierced_locations.with_submit_codes(submit_id).each do |p|
+      file_name = p.file_name
+      lines = p.lines
+      # insertで穴抜き箇所が1行ずれるので、slice!の引数の開始位置を lines[1] にしている
+      # lines[0] + 1 の方が意図として正しいが、ABCサイズがギリギリなのでとりあえずこれで
+      java_contents[file_name].insert(lines[0], p.code).slice!(lines[1], lines.length)
+    end
+    java_contents_join_lines(java_contents)
+  end
+
+  def java_contents_per_lines
+    java_main_contents.map { |content| [content.keys[0], content.values[0].split(/\n/)] }.to_h
+  end
+
+  def java_contents_join_lines(java_contents)
+    java_contents.map { |file, content| { file => content.join("\n") } }
+  end
+
+  def create_submitted_project(submit_id, root_path)
+    copy_repo(root_path)
+    project_root = root_path + '/' + File.basename(local_repository)
+    java_submitted_contents(submit_id).each do |contents|
+      contents.each do |key, value|
+        File.write(project_root + key, value)
+      end
+    end
+    project_root
+  end
+
+  def create_pierced_project(root_path)
+    copy_repo(root_path)
+    project_root = root_path + '/' + File.basename(local_repository)
+    java_pierced_contents.each do |contents|
+      contents.each do |key, value|
+        File.write(project_root + key, value)
+      end
+    end
+    project_root
+  end
+
+  def copy_repo(root_path)
+    FileUtils.cp_r(absolute_path, root_path)
+  end
+
   private
 
   def files

@@ -1,0 +1,43 @@
+sass:
+  .is-right
+    justify-content: flex-end !important
+
+section.hero.is-warning
+  .hero-body
+    .container
+      p 授業名
+      h1.title.is-s1
+        | #{@session.name}
+
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 授業の説明文
+      p = @session.detail
+
+.container
+  .columns
+    .column.is-12 style="min-height: 909px;"
+
+      - if @missions_problems.size.zero?
+        h1.subtitle.is-s1
+          | まだ課題が登録されていません
+      - else
+        p.help
+          span.fa.fa-exclamation-circle aria-hidden="true"
+            | 課題の名前をクリックすることで、それぞれも課題にアクセスできます。
+
+      - @missions_problems.each do |mission, problems|
+        section
+          .article
+            section
+              h2.subtitle.is-s1
+                | #{link_to mission.name, exercises_url(@session.id, mission.id)}
+              p = mission.detail
+            section
+              table.table.is-striped.problem__table
+                - problems.each do |problem|
+                  tr
+                    td.problem__item--name
+                      = problem.name

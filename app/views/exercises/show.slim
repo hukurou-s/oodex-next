@@ -1,0 +1,33 @@
+section.hero.is-warning
+  .hero-body
+    .container
+      h1.title.is-s1
+        | 演習用のページ
+
+section.hero.is-info style="margin-bottom: 30px;"
+  .hero-body
+    .container
+      h1.subtitle.is-s1
+        | 大問ごとに小問の穴抜き箇所を表示する
+
+.container
+  .columns
+    .column.is-12 style="min-height: 909px;"
+      p.help
+        span.fa.fa-exclamation-circle aria-hidden="true"
+          | ここからはReactで書いていくけど、一旦データの確認とページのサンプルとして一覧出力
+
+      .wrapper
+        = react_component('Exercise',
+        problemData: @problems,
+        questionData: @questions,
+        score: @score,
+        problemsWithTests: @problems_with_tests,
+        questionsWithTests: @questions_with_tests,
+        javaPiercedContents: @java_pierced_contents)
+
+javascript:
+  (function() {
+    'use strict'
+    window.exerciseActivity()
+  })()

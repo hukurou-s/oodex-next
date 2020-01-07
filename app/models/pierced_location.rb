@@ -4,6 +4,7 @@ class PiercedLocation < ApplicationRecord
   serialize :lines
   belongs_to :mission
   has_many :tests
+  has_many :submit_codes
 
   scope :of_problem_with_test_info, ->(problem_id) {
     with_test_and_problem
@@ -15,7 +16,10 @@ class PiercedLocation < ApplicationRecord
   scope :problem_test_info, -> {
     select(
       'pierced_locations.lines,
-      tests.test_name, tests.test_command,
+      pierced_locations.file_name,
+      tests.test_name,
+      tests.test_command,
+      problem_tests.problem_id,
       problem_tests.score,
       problem_tests.pierced_level'
     )
@@ -31,9 +35,26 @@ class PiercedLocation < ApplicationRecord
   scope :question_test_info, -> {
     select(
       'pierced_locations.lines,
-      tests.test_name, tests.test_command,
+      pierced_locations.file_name,
+      tests.test_name,
+      tests.test_command,
+      question_tests.question_id,
       question_tests.score,
       question_tests.pierced_level'
     )
+  }
+
+  scope :with_submit_codes, ->(submit_id) {
+    joins(:submit_codes)
+      .select(
+        'submit_codes.submit_id,
+        submit_codes.file_name,
+        submit_codes.code,
+        pierced_locations.lines,
+        pierced_locations.location_id'
+      )
+      .where(submit_codes: { submit_id: submit_id })
+      .order('file_name DESC')
+      .order('location_id DESC')
   }
 end
