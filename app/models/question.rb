@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Question < ApplicationRecord
+class Question < ApplicationRecord # rubocop:disable Metrics/ClassLength
   belongs_to :problem
   has_many :question_tests
   has_many :tests, through: :question_tests
