@@ -56,6 +56,6 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def set_question
-    @question ||= Question.find(params.require(:id))
+    @question = Question.find(params.require(:id))
   end
 end

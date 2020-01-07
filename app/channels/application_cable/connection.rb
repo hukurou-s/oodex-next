@@ -11,12 +11,12 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      User.find(session['warden.user.user.key'][0][0])
+      User.find(user_session['warden.user.user.key'][0][0])
     rescue ActiveRecord::RecordNotFound
       reject_unauthorized_connection
     end
 
-    def session
+    def user_session
       @user_session ||= cookies.encrypted[Rails.application.config.session_options[:key]]
     end
   end

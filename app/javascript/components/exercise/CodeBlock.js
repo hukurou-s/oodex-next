@@ -95,7 +95,4 @@ class CodeBlock extends React.Component {
   }
 }
 
-export default connect(
-  state => ({}),
-  {}
-)(CodeBlock)
+export default connect()(CodeBlock)
