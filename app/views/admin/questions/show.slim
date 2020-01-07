@@ -3,6 +3,12 @@ section.hero.is-warning
     .container
       h1.subtitle.is-s1
         | #{@question.name}
+      .columns
+        .column.is-offset-10.is-1
+          = link_to '大問に戻る',
+          admin_session_mission_problem_url(@session, @mission, @problem),
+            class: 'button is-link'
+
 
 section.hero.is-info style="margin-bottom: 30px;"
   .hero-body

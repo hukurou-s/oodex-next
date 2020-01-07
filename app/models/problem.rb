@@ -50,6 +50,7 @@ class Problem < ApplicationRecord
     result = { test_list: [], error: nil }
 
     test_names&.each_with_index do |test_name, i|
+      next if test_name == 'この問題では使用しない'
       @test = new_test(test_name, labels[i], pirced_location_ids[i])
       test = @test.save
       test ? result[:test_list] << test : result[:error] = @test.report_errors && break
