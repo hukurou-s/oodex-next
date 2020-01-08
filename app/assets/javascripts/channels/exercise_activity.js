@@ -4,21 +4,17 @@ const testingCallback = data => {
       window.loader.show('解答をテストしています... 🤔')
       break
     case 'compile error':
-      window.loader.fail('コンパイルに失敗しました 😱')
-      setTimeout(() => {
-        window.loader.hide()
-        window.location.reload()
-      }, 2000)
+      window.loader.error('コンパイルに失敗しました 😱', data.error)
       break
     case 'fail':
       window.loader.fail('テストを実行できませんでした 😱')
-      break
       setTimeout(() => {
         window.loader.hide()
         window.location.reload()
       }, 2000)
+      break
     case 'done':
-      window.loader.done('テストが完了しました 😆')
+    window.loader.done('テストが完了しました 😆', data.message)
       setTimeout(() => {
         window.loader.hide()
         window.location.reload()

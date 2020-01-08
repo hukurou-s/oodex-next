@@ -13,9 +13,10 @@ class QuestionTestWorker
     project_root = create_tmp_project
 
     return unless exec_tests(project_root)
+    message = @test_result.flatten.map(&:message)
 
     if @submit.save
-      ExerciseActivityChannel.broadcast_to @current_user, status: 'done'
+      ExerciseActivityChannel.broadcast_to @current_user, status: 'done', message: message
     else
       ExerciseActivityChannel.broadcast_to @current_user, status: 'fail'
     end
@@ -42,16 +43,24 @@ class QuestionTestWorker
   end
 
   def can_compile?(project_root)
-    status = build(project_root)
-    return true if status.success?
+    result = build(project_root)
+    return true if result[:status].success?
 
-    ExerciseActivityChannel.broadcast_to @current_user, status: 'compile error'
+    ExerciseActivityChannel.broadcast_to(
+      @current_user,
+      status: 'compile error',
+      error: result[:error]
+    )
     false
   end
 
   def build(project_root)
-    _, _, status = Open3.capture3("#{project_root}/gradlew clean build -x test")
-    status
+    out, err, status = Open3.capture3("#{project_root}/gradlew clean build -x test")
+    {
+      out: out,
+      error: err,
+      status: status
+    }
   end
 
   def test_result_params(test, result)
