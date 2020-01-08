@@ -50,7 +50,7 @@ class QuestionTestWorker
   end
 
   def build(project_root)
-    _, _, status = Open3.capture3("#{project_root}/gradlew clean build")
+    _, _, status = Open3.capture3("#{project_root}/gradlew clean build -x test")
     status
   end
 
