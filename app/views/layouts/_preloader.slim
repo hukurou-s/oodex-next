@@ -13,15 +13,27 @@ sass:
       font-size: 2.5em
       background: none
 
+    .refresh-button
+      display: none
+
+    .error-message
+      font-size: 1.0em
+      text-align: left
+      background: rgba(0, 0, 0, 0.8)
+
 .loading#preloader
   span.fa.fa-spin.fa-spinner.fa-5x.icon
   .message
+  .result-message
+  .refresh-button
 
 javascript:
   (function() {
     const $element = document.querySelector('.loading#preloader')
     const $icon = document.querySelector('.icon')
     const $mes = $element.querySelector('.message')
+    const $resMes = $element.querySelector('.result-message')
+    const $btn = $element.querySelector('.refresh-button')
 
     window.loader = {
       show: function(message = '') {
@@ -37,9 +49,37 @@ javascript:
         $icon.className = 'fa fa-times fa-5x icon'
         $mes.innerText = message
       },
-      done: function(message = '') {
+      done: function(message = '', result = []) {
         $icon.className = 'fa fa-check fa-5x icon'
         $mes.innerText = message
+
+        $reducer = (accumulator, currentValue) => accumulator + '\n' + currentValue
+
+        $pre = document.createElement('pre')
+        $pre.innerText = result.reduce($reducer)
+        $resMes.appendChild($pre)
+
+        $btn.style.display = 'inline'
+        $btn.className = 'button is-primary'
+        $btn.innerText = '閉じる'
+        $btn.addEventListener('click', function() {
+          window.location.reload()
+        })
+      },
+      error: function(message = '', error = '') {
+        $icon.className = 'fa fa-times fa-5x icon'
+        $mes.innerText = message
+
+        $pre = document.createElement('pre')
+        $pre.innerText = error
+        $resMes.appendChild($pre)
+
+        $btn.style.display = 'inline'
+        $btn.className = 'button is-primary'
+        $btn.innerText = '閉じる'
+        $btn.addEventListener('click', function() {
+          window.location.reload()
+        })
       }
     }
   })()
