@@ -14,11 +14,7 @@ const testingCallback = data => {
       }, 2000)
       break
     case 'done':
-    window.loader.done('テストが完了しました 😆', data.message)
-      setTimeout(() => {
-        window.loader.hide()
-        window.location.reload()
-      }, 1000)
+      window.loader.done('テストが完了しました 😆', data.message)
       break
   }
 }

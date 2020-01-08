@@ -65,8 +65,12 @@ class ProblemTestWorker
   end
 
   def build(project_root)
-    _, _, status = Open3.capture3("#{project_root}/gradlew clean build -x test")
-    status
+    out, err, status = Open3.capture3("#{project_root}/gradlew clean build -x test")
+    {
+      out: out,
+      error: err,
+      status: status
+    }
   end
 
   def test_result_params(test, result)
