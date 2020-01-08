@@ -1,11 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import axios from 'axios'
+
 import CodeBlock from './CodeBlock'
 
 class ProblemCode extends React.Component {
   constructor(props) {
     super(props)
+  }
+
+  handleSubmit = async () => {
+    const result = await axios
+      .post(
+        '/api/submissions/problem',
+        {
+          id: this.props.problemID,
+          file_name: '',
+          code: {}
+        },
+        {
+          withCredentials: true
+        }
+      )
+      .then(res => res.data)
+      .catch(/*e => console.log(e)*/)
+    //console.log(result)
+  }
+
+  renderTestButton = () => {
+    return (
+      <div className="columns">
+        <div className="column is-offset-11 is-1">
+          <button type="button" className="button is-primary" onClick={this.handleSubmit}>
+            テスト
+          </button>
+        </div>
+      </div>
+    )
   }
 
   renderCode = javaFiles => {
@@ -17,11 +49,11 @@ class ProblemCode extends React.Component {
       })
       code.push(
         <div key={i} style={{ marginTop: 30 }}>
-          <CodeBlock file={file} code={content[file]} />
+          <CodeBlock id={this.props.problemID} file={file} code={content[file]} type="problem" />
         </div>
       )
     })
-    return code
+    return code.length ? code : this.renderTestButton()
   }
 
   render() {

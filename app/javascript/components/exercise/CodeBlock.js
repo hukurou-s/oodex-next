@@ -11,7 +11,8 @@ class CodeBlock extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      code: this.props.code
+      code: this.props.code,
+      endPoint: `/api/submissions/${this.props.type}`
     }
     axios.defaults.headers['x-csrf-token'] = document
       .querySelector('meta[name="csrf-token"]')
@@ -53,7 +54,7 @@ class CodeBlock extends React.Component {
   handleSubmit = async () => {
     const result = await axios
       .post(
-        '/api/submissions/question',
+        this.state.endPoint,
         {
           id: this.props.id,
           file_name: this.props.file,
