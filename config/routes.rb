@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post '/users/sign_in', to: 'users#sign_in'
     delete '/users/sign_out', to: 'users#sign_out'
 
+    post '/submissions/problem', to: 'submissions#problem'
     post '/submissions/question', to: 'submissions#question'
   end
 
