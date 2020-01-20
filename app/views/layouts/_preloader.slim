@@ -53,7 +53,7 @@ javascript:
         $icon.className = 'fa fa-check fa-5x icon'
         $mes.innerText = message
 
-        $reducer = (accumulator, currentValue) => accumulator + '\n' + currentValue
+        reducer = (accumulator, currentValue) => accumulator + '\n' + currentValue
 
         $pre = document.createElement('pre')
         $pre.innerText = result.reduce($reducer)
