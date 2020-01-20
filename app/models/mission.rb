@@ -54,13 +54,27 @@ class Mission < ApplicationRecord
   end
 
   def java_problem_contents(user_id)
-    submit = Submit.where(user_id: user_id, mission_id: self).last
-    java_contents = if submit
-                      java_submitted_contents(submit.id)
+    submit_id = Submit.last_question_submit_ids(
+      user_id, Question.where(problem_id: problems)
+    ).values
+    java_contents = if submit_id
+                      java_present_contents(submit_id)
                     else
                       java_pierced_contents
                     end
     java_contents
+  end
+
+  def java_present_contents(submit_id)
+    java_contents = java_contents_per_lines
+    submit_codes = pierced_locations.with_submit_codes(submit_id)
+    pierced_locations.order('file_name DESC').order('location_id DESC').each do |p|
+      java_contents[p.file_name].slice!(p.lines[0], p.lines.length)
+
+      code = submit_codes.select { |s| s.id == p.id }.first&.code.to_s
+      java_contents[p.file_name].insert(p.lines[0], code) if code
+    end
+    java_contents_join_lines(java_contents)
   end
 
   def java_pierced_contents
@@ -74,11 +88,8 @@ class Mission < ApplicationRecord
   def java_submitted_contents(submit_id)
     java_contents = java_contents_per_lines
     pierced_locations.with_submit_codes(submit_id).each do |p|
-      file_name = p.file_name
       lines = p.lines
-      # insertで穴抜き箇所が1行ずれるので、slice!の引数の開始位置を lines[1] にしている
-      # lines[0] + 1 の方が意図として正しいが、ABCサイズがギリギリなのでとりあえずこれで
-      java_contents[file_name].insert(lines[0], p.code).slice!(lines[1], lines.length)
+      java_contents[p.file_name].insert(lines[0], p.code).slice!(lines[0] + 1, lines.length)
     end
     java_contents_join_lines(java_contents)
   end

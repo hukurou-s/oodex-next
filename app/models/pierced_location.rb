@@ -50,6 +50,7 @@ class PiercedLocation < ApplicationRecord
         'submit_codes.submit_id,
         submit_codes.file_name,
         submit_codes.code,
+        pierced_locations.id,
         pierced_locations.lines,
         pierced_locations.location_id'
       )
