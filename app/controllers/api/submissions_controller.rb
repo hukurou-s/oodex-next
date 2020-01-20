@@ -77,7 +77,7 @@ class Api::SubmissionsController < ApplicationController
   end
 
   def new_submit_codes
-    pierced_locations = PiercedLocation.where(mission_id: @mission)
+    pierced_locations = PiercedLocation.where(mission_id: @mission, file_name: params[:file_name])
     code = code_param.map do |key, value|
       pierced_location = pierced_locations.find { |pl| pl.location_id == key.to_i }
       @submit.submit_codes.build(submit_codes_params(value, pierced_location))
